@@ -3,6 +3,30 @@
 <%= render @teacher %>
 
 <div>
+  <% if @teacher.subjects.any? %>
+    <h3>List of Subjects:</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @teacher.subjects.each do |subject| %>
+          <tr>
+            <td><%= subject.name %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No subjects assigned to this teacher.</p>
+  <% end %>
+</div>
+
+<div>
   <%= link_to "Edit this teacher", edit_teacher_path(@teacher) %> |
   <%= link_to "Back to teachers", teachers_path %>
 
