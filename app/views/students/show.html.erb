@@ -1,39 +1,145 @@
-<p style="color: green"><%= notice %></p>
+<% content_for :title, @student.name %>
 
-<%= render @student %>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="mb-1"><%= @student.name %></h1>
+    <p class="text-muted mb-0">
+      <%= @student.program %> Year <%= @student.year_level %>
+    </p>
+  </div>
 
-<div>
-  <% if @student.classlists.any? %>
-    <h3>List of Subjects:</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Section</th>
-          <th>Room</th>
-          <th>Timeslot</th>
-          <th>Teacher</th>
-
-        </tr>
-      </thead>
-      <tbody>
-        <% @student.classlists.each do |classlist| %>
-          <tr>
-            <td><%= classlist.section.subject.name %></td>
-            <td><%= classlist.section.name %></td>
-            <td><%= classlist.section.room %></td>
-            <td><%= classlist.section.timeslot %></td>
-            <td><%= classlist.section.subject.teacher.name %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% end %>
+  <%= link_to "Back to Students",
+      students_path,
+      class: "btn btn-outline-secondary" %>
 </div>
 
-<div>
-  <%= link_to "Edit this student", edit_student_path(@student) %> |
-  <%= link_to "Back to students", students_path %>
+<!-- Student Details -->
+<div class="card shadow-sm mb-4">
+  <div class="card-header">
+    <h3 class="mb-0">Student Details</h3>
+  </div>
 
-  <%= button_to "Destroy this student", @student, method: :delete %>
+  <div class="card-body">
+    <div class="row">
+
+      <div class="col-md-6">
+        <h6 class="text-muted">Name</h6>
+        <p><%= @student.name %></p>
+
+        <h6 class="text-muted">Year Level</h6>
+        <p><%= @student.year_level %></p>
+
+        <h6 class="text-muted">Program</h6>
+        <p><%= @student.program %></p>
+
+        <h6 class="text-muted">Department</h6>
+        <p><%= @student.department.name %></p>
+      </div>
+
+      <div class="col-md-6">
+        <h6 class="text-muted">Enrollment Summary</h6>
+
+        <div class="row">
+          <div class="col-6">
+            <div class="card bg-light mb-3">
+              <div class="card-body">
+                <h6 class="card-title">Subjects</h6>
+                <h3><%= @student.subject_count %></h3>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="card bg-light mb-3">
+              <div class="card-body">
+                <h6 class="card-title">Units</h6>
+                <h3><%= @student.number_of_units %></h3>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h6 class="text-muted">Tuition Fee</h6>
+        <h4>
+          <%= number_to_currency @student.tuition_fee, unit: "P" %>
+        </h4>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Enrolled Subjects -->
+<div class="card shadow-sm mb-4">
+  <div class="card-header">
+    <h3 class="mb-0">Enrolled Subjects</h3>
+  </div>
+
+  <div class="card-body">
+    <% if @student.classlists.any? %>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th>Subject</th>
+              <th>Section</th>
+              <th>Room</th>
+              <th>Timeslot</th>
+              <th>Teacher</th>
+              <th>Units</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @student.classlists.each do |classlist| %>
+              <tr>
+                <td><%= classlist.section.subject.name %></td>
+                <td><%= classlist.section.name %></td>
+                <td><%= classlist.section.room %></td>
+                <td><%= classlist.section.timeslot %></td>
+                <td><%= classlist.section.subject.teacher.name %></td>
+                <td><%= classlist.section.subject.number_of_units %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+    <% else %>
+      <p class="text-muted mb-0">No subjects enrolled.</p>
+    <% end %>
+  </div>
+</div>
+
+<!-- Enroll in a Section -->
+<div class="card shadow-sm">
+  <div class="card-header">
+    <h3 class="mb-0">Enroll in a Section</h3>
+  </div>
+
+  <div class="card-body">
+
+    <%= form_with model: @classlist, local: true do |form| %>
+
+      <%= form.hidden_field :student_id, value: @student.id %>
+
+      <div class="mb-3">
+        <%= form.label :section_id, "Section", class: "form-label" %>
+
+        <%= form.collection_select :section_id,
+            @available_sections,
+            :id,
+            :name,
+            { prompt: "Select a section" },
+            { class: "form-select" } %>
+      </div>
+
+      <%= hidden_field_tag :from_student, @student.id %>
+
+      <%= form.submit "Enroll", class: "btn btn-success" %>
+
+    <% end %>
+
+  </div>
 </div>

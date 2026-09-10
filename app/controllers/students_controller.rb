@@ -8,6 +8,8 @@ class StudentsController < ApplicationController
 
   # GET /students/1 or /students/1.json
   def show
+    @classlist = Classlist.new(student: @student)
+    @available_sections = Section.where.not(id: @student.section_ids).order(:name)
   end
 
   # GET /students/new
@@ -58,13 +60,14 @@ class StudentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_student
-      @student = Student.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def student_params
-      params.expect(student: [ :name, :year_level, :program, :department_id ])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_student
+    @student = Student.find(params.expect(:id))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def student_params
+    params.expect(student: [ :name, :year_level, :program, :department_id ])
+  end
 end
