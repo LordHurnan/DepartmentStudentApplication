@@ -24,17 +24,24 @@ class StudentsController < ApplicationController
   # POST /students or /students.json
   def create
     @student = Student.new(student_params)
+    department = Department.find_by(id: params[:from_department])
 
     respond_to do |format|
-      if @student.save
-        format.html { redirect_to @student, notice: "Student was successfully created." }
-        format.json { render :show, status: :created, location: @student }
-      else
-        format.html { render :new, status: :unprocessable_content }
-        format.json { render json: @student.errors, status: :unprocessable_content }
+    if @student.save
+      format.html { redirect_to department || @student, notice: "Student was successfully created." }
+      format.json { render :show, status: :created, location: @student }
+    else
+      format.html do
+        if department
+          redirect_to department, alert: @student.errors.full_messages.to_sentence, status: :see_other
+        else
+          render :new, status: :unprocessable_entity
+        end
       end
+      format.json { render json: @student.errors, status: :unprocessable_entity }
     end
   end
+end
 
   # PATCH/PUT /students/1 or /students/1.json
   def update
@@ -51,11 +58,12 @@ class StudentsController < ApplicationController
 
   # DELETE /students/1 or /students/1.json
   def destroy
+    department = Department.find_by(id: params[:from_department])
     @student.destroy!
 
     respond_to do |format|
-      format.html { redirect_to students_path, notice: "Student was successfully destroyed.", status: :see_other }
-      format.json { head :no_content }
+    format.html { redirect_to department || students_path, notice: "Student was successfully destroyed.", status: :see_other }
+    format.json { head :no_content }
     end
   end
 

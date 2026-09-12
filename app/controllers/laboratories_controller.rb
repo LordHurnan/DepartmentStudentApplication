@@ -22,14 +22,19 @@ class LaboratoriesController < ApplicationController
   # POST /laboratories or /laboratories.json
   def create
     @laboratory = Laboratory.new(laboratory_params)
+    department = Department.find_by(id: params[:from_department])
 
     respond_to do |format|
       if @laboratory.save
-        format.html { redirect_to @laboratory, notice: "Laboratory was successfully created." }
-        format.json { render :show, status: :created, location: @laboratory }
+        format.html { redirect_to department || @laboratory, notice: "Laboratory was successfully created." }
       else
-        format.html { render :new, status: :unprocessable_content }
-        format.json { render json: @laboratory.errors, status: :unprocessable_content }
+        format.html do
+          if department
+            redirect_to department, alert: @laboratory.errors.full_messages.to_sentence, status: :see_other
+          else
+            render :new, status: :unprocessable_entity
+          end
+        end
       end
     end
   end
@@ -49,10 +54,11 @@ class LaboratoriesController < ApplicationController
 
   # DELETE /laboratories/1 or /laboratories/1.json
   def destroy
+    department = Department.find_by(id: params[:from_department])
     @laboratory.destroy!
 
     respond_to do |format|
-      format.html { redirect_to laboratories_path, notice: "Laboratory was successfully destroyed.", status: :see_other }
+      format.html { redirect_to department || laboratories_path, notice: "Laboratory was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
   end
