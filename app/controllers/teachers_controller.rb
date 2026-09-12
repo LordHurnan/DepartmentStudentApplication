@@ -22,14 +22,19 @@ class TeachersController < ApplicationController
   # POST /teachers or /teachers.json
   def create
     @teacher = Teacher.new(teacher_params)
+    department = Department.find_by(id: params[:from_department])
 
     respond_to do |format|
       if @teacher.save
-        format.html { redirect_to @teacher, notice: "Teacher was successfully created." }
-        format.json { render :show, status: :created, location: @teacher }
+        format.html { redirect_to department || @teacher, notice: "Teacher was successfully created." }
       else
-        format.html { render :new, status: :unprocessable_content }
-        format.json { render json: @teacher.errors, status: :unprocessable_content }
+        format.html do
+          if department
+            redirect_to department, alert: @teacher.errors.full_messages.to_sentence, status: :see_other
+          else
+            render :new, status: :unprocessable_entity
+          end
+        end
       end
     end
   end
@@ -49,10 +54,11 @@ class TeachersController < ApplicationController
 
   # DELETE /teachers/1 or /teachers/1.json
   def destroy
+    department = Department.find_by(id: params[:from_department])
     @teacher.destroy!
 
     respond_to do |format|
-      format.html { redirect_to teachers_path, notice: "Teacher was successfully destroyed.", status: :see_other }
+      format.html { redirect_to department || teachers_path, notice: "Teacher was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
   end

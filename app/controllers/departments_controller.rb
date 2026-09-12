@@ -8,6 +8,9 @@ class DepartmentsController < ApplicationController
 
   # GET /departments/1 or /departments/1.json
   def show
+    @student = Student.new(department: @department)
+    @teacher = Teacher.new(department: @department)
+    @laboratory = Laboratory.new(department: @department)
   end
 
   # GET /departments/new
