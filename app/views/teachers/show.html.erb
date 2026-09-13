@@ -1,34 +1,169 @@
-<p style="color: green"><%= notice %></p>
+<% content_for :title, @teacher.name %>
 
-<%= render @teacher %>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="mb-1"><%= @teacher.name %></h1>
+    <p class="text-muted mb-0">
+      Teacher | <%= @teacher.specialization %>
+    </p>
+  </div>
 
-<div>
-  <% if @teacher.subjects.any? %>
-    <h3>List of Subjects:</h3>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @teacher.subjects.each do |subject| %>
-          <tr>
-            <td><%= subject.name %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% else %>
-    <p>No subjects assigned to this teacher.</p>
-  <% end %>
+  <%= link_to "Back to Teachers",
+      teachers_path,
+      class: "btn btn-outline-secondary" %>
 </div>
 
-<div>
-  <%= link_to "Edit this teacher", edit_teacher_path(@teacher) %> |
-  <%= link_to "Back to teachers", teachers_path %>
+<!-- Teacher Details -->
+<div class="card shadow-sm mb-4">
+  <div class="card-header">
+    <h3 class="mb-0">Teacher Details</h3>
+  </div>
 
-  <%= button_to "Destroy this teacher", @teacher, method: :delete %>
+  <div class="card-body">
+    <div class="row">
+
+      <div class="col-md-6">
+
+        <h6 class="text-muted">Name</h6>
+        <p><%= @teacher.name %></p>
+
+        <h6 class="text-muted">Email</h6>
+        <p><%= @teacher.email %></p>
+
+        <h6 class="text-muted">Specialization</h6>
+        <p><%= @teacher.specialization %></p>
+
+        <h6 class="text-muted">Department</h6>
+        <p><%= @teacher.department.name %></p>
+
+      </div>
+
+      <div class="col-md-6">
+
+        <h6 class="text-muted">Teaching Summary</h6>
+
+        <div class="row">
+
+          <div class="col-6">
+            <div class="card bg-light mb-3">
+              <div class="card-body">
+                <h6 class="card-title">Subjects</h6>
+                <h3><%= @teacher.subjects.count %></h3>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="card bg-light mb-3">
+              <div class="card-body">
+                <h6 class="card-title">Per Unit Rate</h6>
+                <h3>
+                  <%= number_to_currency @teacher.per_unit_rate, unit: "₱" %>
+                </h3>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <h6 class="text-muted">Monthly Salary</h6>
+
+        <h4>
+          <%= number_to_currency @teacher.monthly_salary, unit: "₱" %>
+        </h4>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- Subjects I Teach -->
+<div class="card shadow-sm mb-4">
+
+  <div class="card-header">
+    <h3 class="mb-0">Subjects I Teach</h3>
+  </div>
+
+  <div class="card-body">
+
+    <% if @teacher.subjects.any? %>
+
+      <div class="table-responsive">
+
+        <table class="table table-striped table-hover table-bordered align-middle">
+
+          <thead class="table-dark">
+            <tr>
+              <th>Subject</th>
+              <th>Sections</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <% @teacher.subjects.each do |subject| %>
+
+              <tr>
+
+                <td>
+                  <%= subject.name %>
+                </td>
+
+                <td>
+                  <%= subject.sections.count %>
+                </td>
+
+              </tr>
+
+            <% end %>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    <% else %>
+
+      <p class="text-muted mb-0">
+        No subjects assigned to this teacher.
+      </p>
+
+    <% end %>
+
+  </div>
+
+</div>
+
+
+<!-- Teacher Actions -->
+<div class="card shadow-sm">
+
+  <div class="card-header">
+    <h3 class="mb-0">Teacher Actions</h3>
+  </div>
+
+  <div class="card-body">
+
+    <%= link_to "Edit Teacher",
+        edit_teacher_path(@teacher),
+        class: "btn btn-primary" %>
+
+    <%= link_to "Back to Teachers",
+        teachers_path,
+        class: "btn btn-secondary" %>
+
+    <%= button_to "Delete Teacher",
+        @teacher,
+        method: :delete,
+        class: "btn btn-danger",
+        form_class: "d-inline-block",
+        data: {
+          turbo_confirm: "Are you sure you want to delete this teacher?"
+        } %>
+
+  </div>
+
 </div>
