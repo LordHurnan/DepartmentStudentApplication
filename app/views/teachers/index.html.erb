@@ -1,16 +1,76 @@
-<p style="color: green"><%= notice %></p>
+<p class="text-success"><%= notice %></p>
 
 <% content_for :title, "Teachers" %>
 
 <h1>Teachers</h1>
 
-<div id="teachers">
-  <% @teachers.each do |teacher| %>
-    <%= render teacher %>
-    <p>
-      <%= link_to "Show this teacher", teacher %>
-    </p>
-  <% end %>
+<div id="teachers" class="table-responsive">
+  <table class="table table-striped table-hover table-bordered align-middle">
+
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Specialization</th>
+        <th>Department</th>
+        <th>Subjects</th>
+        <th>Monthly Salary</th>
+        <th>Per Unit Rate</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @teachers.each do |teacher| %>
+        <tr id="<%= dom_id teacher %>">
+
+          <td><%= teacher.name %></td>
+
+          <td><%= teacher.email %></td>
+
+          <td><%= teacher.specialization %></td>
+
+          <td><%= teacher.department.name %></td>
+
+          <td><%= teacher.subjects.count %></td>
+
+          <td>
+            <%= number_to_currency teacher.monthly_salary, unit: "₱" %>
+          </td>
+
+          <td>
+            <%= number_to_currency teacher.per_unit_rate, unit: "₱" %>
+          </td>
+
+          <td class="text-nowrap">
+
+            <%= button_to "Show",
+                teacher,
+                method: :get,
+                class: "btn btn-sm btn-primary",
+                form_class: "d-inline-block" %>
+
+            <%= button_to "Edit",
+                edit_teacher_path(teacher),
+                method: :get,
+                class: "btn btn-sm btn-secondary",
+                form_class: "d-inline-block" %>
+
+            <%= button_to "Delete",
+                teacher,
+                method: :delete,
+                class: "btn btn-sm btn-danger",
+                form_class: "d-inline-block" %>
+
+          </td>
+
+        </tr>
+      <% end %>
+    </tbody>
+
+  </table>
 </div>
 
-<%= link_to "New teacher", new_teacher_path %>
+<%= link_to "New teacher",
+    new_teacher_path,
+    class: "btn btn-success" %>

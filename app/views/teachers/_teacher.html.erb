@@ -1,22 +1,36 @@
-<div id="<%= dom_id teacher %>">
-  <div>
-    <strong>Name:</strong>
-    <%= teacher.name %>
+<div id="<%= dom_id teacher %>" class="card shadow-sm mb-4">
+
+  <div class="card-header bg-primary text-white">
+    <h4 class="mb-0">Teacher Profile</h4>
   </div>
 
-  <div>
-    <strong>Email:</strong>
-    <%= teacher.email %>
-  </div>
+  <div class="card-body">
 
-  <div>
-    <strong>Specialization:</strong>
-    <%= teacher.specialization %>
-  </div>
+    <div class="row">
 
-  <div>
-    <strong>Department:</strong>
-    <%= teacher.department_id %>
-  </div>
+      <div class="col-md-6 mb-3">
+        <strong>Name</strong>
+        <p class="mb-0"><%= teacher.name %></p>
+      </div>
 
+      <div class="col-md-6 mb-3">
+        <strong>Email</strong>
+        <p class="mb-0"><%= teacher.email %></p>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <strong>Specialization</strong>
+        <p class="mb-0"><%= teacher.specialization %></p>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <strong>Department</strong>
+        <p class="mb-0">
+          <%= teacher.department&.name || "No department" %>
+        </p>
+      </div>
+
+    </div>
+
+  </div>
 </div>
