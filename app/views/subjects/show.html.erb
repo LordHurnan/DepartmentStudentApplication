@@ -3,6 +3,20 @@
 <%= render @subject %>
 
 <div>
+  <h3>Subject Information</h3>
+
+  <p>
+    <strong>Number of Units:</strong>
+    <%= @subject.number_of_units %>
+  </p>
+
+  <p>
+    <strong>Per Unit Rate:</strong>
+    <%= number_to_currency(@subject.per_unit_rate, unit: "₱") %>
+  </p>
+</div>
+
+<div>
   <h3>Sections</h3>
 
   <% if @subject.sections.any? %>

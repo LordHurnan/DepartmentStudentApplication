@@ -64,13 +64,12 @@ class TeachersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_teacher
       @teacher = Teacher.find(params.expect(:id))
     end
 
-    # Only allow a list of trusted parameters through.
     def teacher_params
-      params.expect(teacher: [ :name, :email, :specialization, :department_id ])
+      params.expect(teacher: [ :name, :email, :specialization, :department_id, :per_unit_rate ])
     end
-end
+  end

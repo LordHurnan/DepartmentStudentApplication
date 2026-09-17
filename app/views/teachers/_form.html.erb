@@ -32,6 +32,11 @@
   </div>
 
   <div>
+    <%= form.label :per_unit_rate, "Per Unit Rate", style: "display: block" %>
+    <%= form.number_field :per_unit_rate, step: 0.01 %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

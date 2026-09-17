@@ -12,7 +12,8 @@ class Teacher < ApplicationRecord
   end
 
   def update_monthly_salary
-    self.monthly_salary = subjects.count * per_unit_rate.to_d
+    total_units = subjects.sum(:number_of_units)
+    self.monthly_salary = total_units * per_unit_rate.to_d
     save!
   end
 

@@ -43,7 +43,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_13_015746) do
     t.datetime "created_at", null: false
     t.string "name"
     t.string "room"
-    t.integer "student_count", default: 0
     t.bigint "subject_id", null: false
     t.string "timeslot"
     t.datetime "updated_at", null: false
@@ -89,7 +88,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_13_015746) do
   add_foreign_key "classlists", "sections"
   add_foreign_key "classlists", "students"
   add_foreign_key "laboratories", "departments"
-  add_foreign_key "sections", "subjects"
   add_foreign_key "students", "departments"
   add_foreign_key "subjects", "teachers"
   add_foreign_key "teachers", "departments"
