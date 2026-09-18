@@ -22,6 +22,7 @@
   <div class="card-body">
     <div class="row">
 
+      <!-- Student Information -->
       <div class="col-md-6">
         <h6 class="text-muted">Name</h6>
         <p><%= @student.name %></p>
@@ -36,33 +37,49 @@
         <p><%= @student.department.name %></p>
       </div>
 
+      <!-- Enrollment Summary -->
       <div class="col-md-6">
-        <h6 class="text-muted">Enrollment Summary</h6>
+        <h6 class="text-muted mb-3">Enrollment Summary</h6>
 
-        <div class="row">
-          <div class="col-6">
-            <div class="card bg-light mb-3">
+        <div class="row g-3">
+
+          <!-- Subjects -->
+          <div class="col-md-4">
+            <div class="card bg-light h-100 text-center">
               <div class="card-body">
-                <h6 class="card-title">Subjects</h6>
-                <h3><%= @student.subject_count %></h3>
+                <h6 class="card-title text-muted">Subjects</h6>
+                <h3 class="mb-0">
+                  <%= @student.subject_count %>
+                </h3>
               </div>
             </div>
           </div>
 
-          <div class="col-6">
-            <div class="card bg-light mb-3">
+          <!-- Units -->
+          <div class="col-md-4">
+            <div class="card bg-light h-100 text-center">
               <div class="card-body">
-                <h6 class="card-title">Units</h6>
-                <h3><%= @student.number_of_units %></h3>
+                <h6 class="card-title text-muted">Units</h6>
+                <h3 class="mb-0">
+                  <%= @student.number_of_units %>
+                </h3>
               </div>
             </div>
           </div>
+
+          <!-- Tuition Fee -->
+          <div class="col-md-4">
+            <div class="card bg-light h-100 text-center">
+              <div class="card-body">
+                <h6 class="card-title text-muted">Tuition Fee</h6>
+                <h4 class="mb-0">
+                  <%= number_to_currency @student.tuition_fee, unit: "P" %>
+                </h4>
+              </div>
+            </div>
+          </div>
+
         </div>
-
-        <h6 class="text-muted">Tuition Fee</h6>
-        <h4>
-          <%= number_to_currency @student.tuition_fee, unit: "P" %>
-        </h4>
       </div>
 
     </div>
@@ -94,12 +111,29 @@
           <tbody>
             <% @student.classlists.each do |classlist| %>
               <tr>
-                <td><%= classlist.section.subject.name %></td>
-                <td><%= classlist.section.name %></td>
-                <td><%= classlist.section.room %></td>
-                <td><%= classlist.section.timeslot %></td>
-                <td><%= classlist.section.subject.teacher.name %></td>
-                <td><%= classlist.section.subject.number_of_units %></td>
+                <td>
+                  <%= classlist.section.subject.name %>
+                </td>
+
+                <td>
+                  <%= classlist.section.name %>
+                </td>
+
+                <td>
+                  <%= classlist.section.room %>
+                </td>
+
+                <td>
+                  <%= classlist.section.timeslot %>
+                </td>
+
+                <td>
+                  <%= classlist.section.subject.teacher.name %>
+                </td>
+
+                <td>
+                  <%= classlist.section.subject.number_of_units %>
+                </td>
               </tr>
             <% end %>
           </tbody>
@@ -107,7 +141,9 @@
       </div>
 
     <% else %>
-      <p class="text-muted mb-0">No subjects enrolled.</p>
+      <p class="text-muted mb-0">
+        No subjects enrolled.
+      </p>
     <% end %>
   </div>
 </div>

@@ -1,16 +1,74 @@
-<p style="color: green"><%= notice %></p>
+<p class="text-success"><%= notice %></p>
 
 <% content_for :title, "Subjects" %>
 
 <h1>Subjects</h1>
 
-<div id="subjects">
-  <% @subjects.each do |subject| %>
-    <%= render subject %>
-    <p>
-      <%= link_to "Show this subject", subject %>
-    </p>
-  <% end %>
+<div id="subjects" class="table-responsive">
+  <table class="table table-striped table-hover table-bordered align-middle">
+
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Teacher</th>
+        <th>Number of Units</th>
+        <th>Per Unit Rate</th>
+        <th>Sections</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @subjects.each do |subject| %>
+        <tr id="<%= dom_id subject %>">
+
+          <td><%= subject.name %></td>
+
+          <td>
+            <%= subject.teacher&.name || "No teacher assigned" %>
+          </td>
+
+          <td>
+            <%= subject.number_of_units %>
+          </td>
+
+          <td>
+            <%= number_to_currency subject.per_unit_rate, unit: "₱" %>
+          </td>
+
+          <td>
+            <%= subject.sections.count %>
+          </td>
+
+          <td class="text-nowrap">
+
+            <%= button_to "Show",
+                subject,
+                method: :get,
+                class: "btn btn-sm btn-primary",
+                form_class: "d-inline-block" %>
+
+            <%= button_to "Edit",
+                edit_subject_path(subject),
+                method: :get,
+                class: "btn btn-sm btn-secondary",
+                form_class: "d-inline-block" %>
+
+            <%= button_to "Delete",
+                subject,
+                method: :delete,
+                class: "btn btn-sm btn-danger",
+                form_class: "d-inline-block" %>
+
+          </td>
+
+        </tr>
+      <% end %>
+    </tbody>
+
+  </table>
 </div>
 
-<%= link_to "New subject", new_subject_path %>
+<%= link_to "New subject",
+    new_subject_path,
+    class: "btn btn-success" %>

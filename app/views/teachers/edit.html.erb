@@ -1,12 +1,240 @@
-<% content_for :title, "Editing teacher" %>
+<% content_for :title, "Edit Teacher" %>
 
-<h1>Editing teacher</h1>
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-<%= render "form", teacher: @teacher %>
+  <div>
+    <h1 class="mb-1">Edit Teacher</h1>
 
-<br>
+    <p class="text-muted mb-0">
+      Update teacher information
+    </p>
+  </div>
 
-<div>
-  <%= link_to "Show this teacher", @teacher %> |
-  <%= link_to "Back to teachers", teachers_path %>
+  <%= link_to "Back to Teachers",
+      teachers_path,
+      class: "btn btn-outline-secondary" %>
+
+</div>
+
+
+<!-- Teacher Information -->
+<div class="card shadow-sm mb-4">
+
+  <div class="card-header">
+    <h3 class="mb-0">Teacher Information</h3>
+  </div>
+
+  <div class="card-body">
+
+    <%= form_with model: @teacher do |form| %>
+
+      <% if @teacher.errors.any? %>
+
+        <div class="alert alert-danger">
+
+          <h5>
+            <%= pluralize(@teacher.errors.count, "error") %>
+            prohibited this teacher from being saved:
+          </h5>
+
+          <ul class="mb-0">
+
+            <% @teacher.errors.each do |error| %>
+
+              <li>
+                <%= error.full_message %>
+              </li>
+
+            <% end %>
+
+          </ul>
+
+        </div>
+
+      <% end %>
+
+
+      <!-- Name -->
+      <div class="mb-3">
+
+        <%= form.label :name,
+            "Name",
+            class: "form-label" %>
+
+        <%= form.text_field :name,
+            class: "form-control",
+            placeholder: "Enter teacher's name" %>
+
+      </div>
+
+
+      <!-- Email -->
+      <div class="mb-3">
+
+        <%= form.label :email,
+            "Email",
+            class: "form-label" %>
+
+        <%= form.email_field :email,
+            class: "form-control",
+            placeholder: "Enter email address" %>
+
+      </div>
+
+
+      <!-- Specialization -->
+      <div class="mb-3">
+
+        <%= form.label :specialization,
+            "Specialization",
+            class: "form-label" %>
+
+        <%= form.text_field :specialization,
+            class: "form-control",
+            placeholder: "Enter specialization" %>
+
+      </div>
+
+
+      <!-- Department -->
+      <div class="mb-3">
+
+        <%= form.label :department_id,
+            "Department",
+            class: "form-label" %>
+
+        <%= form.collection_select :department_id,
+            Department.order(:name),
+            :id,
+            :name,
+            { prompt: "Select Department" },
+            { class: "form-select" } %>
+
+      </div>
+
+
+      <!-- Per Unit Rate -->
+      <div class="mb-4">
+
+        <%= form.label :per_unit_rate,
+            "Per Unit Rate",
+            class: "form-label" %>
+
+        <%= form.number_field :per_unit_rate,
+            class: "form-control",
+            step: 0.01,
+            min: 0,
+            placeholder: "Enter per unit rate" %>
+
+      </div>
+
+
+      <!-- Buttons -->
+      <div class="d-flex gap-2">
+
+        <%= form.submit "Update Teacher",
+            class: "btn btn-primary" %>
+
+        <%= link_to "Cancel",
+            @teacher,
+            class: "btn btn-outline-secondary" %>
+
+      </div>
+
+    <% end %>
+
+  </div>
+
+</div>
+
+
+<!-- Subjects I Teach -->
+<div class="card shadow-sm mb-4">
+
+  <div class="card-header">
+    <h3 class="mb-0">Subjects I Teach</h3>
+  </div>
+
+  <div class="card-body">
+
+    <% if @teacher.subjects.any? %>
+
+      <div class="table-responsive">
+
+        <table class="table table-striped table-hover table-bordered align-middle">
+
+          <thead class="table-dark">
+
+            <tr>
+              <th>Subject</th>
+              <th>Sections</th>
+              <th>Action</th>
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            <% @teacher.subjects.each do |subject| %>
+
+              <tr>
+
+                <td>
+                  <%= subject.name %>
+                </td>
+
+                <td>
+                  <%= subject.sections.count %>
+                </td>
+
+                <td>
+
+                  <%= button_to "Remove",
+                      remove_subject_teacher_path(
+                        @teacher,
+                        subject_id: subject.id
+                      ),
+                      method: :delete,
+                      class: "btn btn-sm btn-danger",
+                      data: {
+                        turbo_confirm:
+                          "Remove #{subject.name} from this teacher?"
+                      } %>
+
+                </td>
+
+              </tr>
+
+            <% end %>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    <% else %>
+
+      <p class="text-muted mb-0">
+        No subjects assigned to this teacher.
+      </p>
+
+    <% end %>
+
+  </div>
+
+</div>
+
+
+<!-- Navigation -->
+<div class="d-flex gap-2">
+
+  <%= link_to "Show this teacher",
+      @teacher,
+      class: "btn btn-secondary" %>
+
+  <%= link_to "Back to Teachers",
+      teachers_path,
+      class: "btn btn-outline-secondary" %>
+
 </div>
