@@ -1,12 +1,24 @@
-<% content_for :title, "Editing classlist" %>
+<% content_for :title, "Edit Class List" %>
 
-<h1>Editing classlist</h1>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="mb-1">Edit Class List</h1>
+    <p class="text-muted mb-0">
+      Update student enrollment information
+    </p>
+  </div>
 
-<%= render "form", classlist: @classlist %>
+  <%= link_to "Back to Class Lists",
+      classlists_path,
+      class: "btn btn-outline-secondary" %>
+</div>
 
-<br>
+<div class="card shadow-sm">
+  <div class="card-header">
+    <h3 class="mb-0">Class List Information</h3>
+  </div>
 
-<div>
-  <%= link_to "Show this classlist", @classlist %> |
-  <%= link_to "Back to classlists", classlists_path %>
+  <div class="card-body">
+    <%= render "form", classlist: @classlist %>
+  </div>
 </div>

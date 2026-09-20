@@ -1,10 +1,126 @@
-<p style="color: green"><%= notice %></p>
+<% content_for :title, "Class List" %>
 
-<%= render @classlist %>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="mb-1">Class List</h1>
+    <p class="text-muted mb-0">
+      Student enrollment and section information
+    </p>
+  </div>
 
-<div>
-  <%= link_to "Edit this classlist", edit_classlist_path(@classlist) %> |
-  <%= link_to "Back to classlists", classlists_path %>
+  <%= link_to "Back to Class Lists",
+      classlists_path,
+      class: "btn btn-outline-secondary" %>
+</div>
 
-  <%= button_to "Destroy this classlist", @classlist, method: :delete %>
+<!-- Student Information -->
+<div class="card shadow-sm mb-4">
+  <div class="card-header">
+    <h3 class="mb-0">Student</h3>
+  </div>
+
+  <div class="card-body">
+    <div class="row">
+
+      <div class="col-md-4">
+        <h6 class="text-muted">Name</h6>
+        <p><%= @classlist.student.name %></p>
+      </div>
+
+      <div class="col-md-4">
+        <h6 class="text-muted">Program</h6>
+        <p><%= @classlist.student.program %></p>
+      </div>
+
+      <div class="col-md-4">
+        <h6 class="text-muted">Year Level</h6>
+        <p><%= @classlist.student.year_level %></p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Section Information -->
+<div class="card shadow-sm mb-4">
+  <div class="card-header">
+    <h3 class="mb-0">Section</h3>
+  </div>
+
+  <div class="card-body">
+    <div class="row">
+
+      <div class="col-md-4">
+        <h6 class="text-muted">Section Name</h6>
+        <p><%= @classlist.section.name %></p>
+      </div>
+
+      <div class="col-md-4">
+        <h6 class="text-muted">Room</h6>
+        <p><%= @classlist.section.room %></p>
+      </div>
+
+      <div class="col-md-4">
+        <h6 class="text-muted">Timeslot</h6>
+        <p><%= @classlist.section.timeslot %></p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Subject Information -->
+<div class="card shadow-sm mb-4">
+  <div class="card-header">
+    <h3 class="mb-0">Subject</h3>
+  </div>
+
+  <div class="card-body">
+    <div class="row">
+
+      <div class="col-md-4">
+        <h6 class="text-muted">Subject Name</h6>
+        <p><%= @classlist.section.subject.name %></p>
+      </div>
+
+      <div class="col-md-4">
+        <h6 class="text-muted">Number of Units</h6>
+        <p><%= @classlist.section.subject.number_of_units %></p>
+      </div>
+
+      <div class="col-md-4">
+        <h6 class="text-muted">Teacher</h6>
+        <p><%= @classlist.section.subject.teacher.name %></p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Class List Actions -->
+<div class="card shadow-sm">
+  <div class="card-header">
+    <h3 class="mb-0">Class List Actions</h3>
+  </div>
+
+  <div class="card-body">
+
+    <div class="d-flex gap-2">
+
+      <%= link_to "Edit Class List",
+          edit_classlist_path(@classlist),
+          class: "btn btn-primary" %>
+
+      <%= button_to "Delete Class List",
+          @classlist,
+          method: :delete,
+          class: "btn btn-danger" %>
+
+      <%= link_to "Back to Class Lists",
+          classlists_path,
+          class: "btn btn-outline-secondary" %>
+
+    </div>
+
+  </div>
 </div>

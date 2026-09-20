@@ -1,9 +1,13 @@
-<%= form_with(model: laboratory) do |form| %>
-  <% if laboratory.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(laboratory.errors.count, "error") %> prohibited this laboratory from being saved:</h2>
+<%= form_with model: laboratory do |form| %>
 
-      <ul>
+  <% if laboratory.errors.any? %>
+    <div class="alert alert-danger">
+      <h5>
+        <%= pluralize(laboratory.errors.count, "error") %>
+        prohibited this laboratory from being saved:
+      </h5>
+
+      <ul class="mb-0">
         <% laboratory.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -11,22 +15,46 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <!-- Name -->
+  <div class="mb-3">
+    <%= form.label :name, "Name", class: "form-label" %>
+
+    <%= form.text_field :name,
+        class: "form-control",
+        placeholder: "Enter laboratory name" %>
   </div>
 
-  <div>
-    <%= form.label :location, style: "display: block" %>
-    <%= form.text_field :location %>
+  <!-- Location -->
+  <div class="mb-3">
+    <%= form.label :location, "Location", class: "form-label" %>
+
+    <%= form.text_field :location,
+        class: "form-control",
+        placeholder: "Enter laboratory location" %>
   </div>
 
-  <div>
-    <%= form.label :department_id, "Department", style: "display: block" %>
-    <%= form.collection_select :department_id, Department.order(:name), :id, :name, prompt: "Select Department" %>
+  <!-- Department -->
+  <div class="mb-4">
+    <%= form.label :department_id, "Department", class: "form-label" %>
+
+    <%= form.collection_select :department_id,
+        Department.order(:name),
+        :id,
+        :name,
+        { prompt: "Select Department" },
+        { class: "form-select" } %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <!-- Buttons -->
+  <div class="d-flex gap-2">
+
+    <%= form.submit "Update Laboratory",
+        class: "btn btn-primary" %>
+
+    <%= link_to "Cancel",
+        @laboratory,
+        class: "btn btn-outline-secondary" %>
+
   </div>
+
 <% end %>
