@@ -1,12 +1,24 @@
-<% content_for :title, "Editing laboratory" %>
+<% content_for :title, "Edit Laboratory" %>
 
-<h1>Editing laboratory</h1>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="mb-1">Edit Laboratory</h1>
+    <p class="text-muted mb-0">
+      Update laboratory information
+    </p>
+  </div>
 
-<%= render "form", laboratory: @laboratory %>
+  <%= link_to "Back to Laboratories",
+      laboratories_path,
+      class: "btn btn-outline-secondary" %>
+</div>
 
-<br>
+<div class="card shadow-sm">
+  <div class="card-header">
+    <h3 class="mb-0">Laboratory Information</h3>
+  </div>
 
-<div>
-  <%= link_to "Show this laboratory", @laboratory %> |
-  <%= link_to "Back to laboratories", laboratories_path %>
+  <div class="card-body">
+    <%= render "form", laboratory: @laboratory %>
+  </div>
 </div>
