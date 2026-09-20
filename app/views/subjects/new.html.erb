@@ -1,11 +1,95 @@
-<% content_for :title, "New subject" %>
+<% content_for :title, "New Subject" %>
 
-<h1>New subject</h1>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="mb-1">New Subject</h1>
+    <p class="text-muted mb-0">
+      Add a new subject
+    </p>
+  </div>
 
-<%= render "form", subject: @subject %>
+  <%= link_to "Back to Subjects",
+      subjects_path,
+      class: "btn btn-outline-secondary" %>
+</div>
 
-<br>
+<div class="card shadow-sm">
+  <div class="card-header">
+    <h3 class="mb-0">Subject Information</h3>
+  </div>
 
-<div>
-  <%= link_to "Back to subjects", subjects_path %>
+  <div class="card-body">
+
+    <%= form_with model: @subject do |form| %>
+
+      <% if @subject.errors.any? %>
+        <div class="alert alert-danger">
+          <h5>
+            <%= pluralize(@subject.errors.count, "error") %>
+            prohibited this subject from being saved:
+          </h5>
+
+          <ul class="mb-0">
+            <% @subject.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <!-- Name -->
+      <div class="mb-3">
+        <%= form.label :name, "Name", class: "form-label" %>
+
+        <%= form.text_field :name,
+            class: "form-control",
+            placeholder: "Enter subject name" %>
+      </div>
+
+      <!-- Teacher -->
+      <div class="mb-3">
+        <%= form.label :teacher_id, "Teacher", class: "form-label" %>
+
+        <%= form.collection_select :teacher_id,
+            Teacher.order(:name),
+            :id,
+            :name,
+            { prompt: "Select Teacher" },
+            { class: "form-select" } %>
+      </div>
+
+      <!-- Number of Units -->
+      <div class="mb-3">
+        <%= form.label :number_of_units, "Number of Units", class: "form-label" %>
+
+        <%= form.number_field :number_of_units,
+            class: "form-control",
+            min: 0,
+            placeholder: "Enter number of units" %>
+      </div>
+
+      <!-- Per Unit Rate -->
+      <div class="mb-4">
+        <%= form.label :per_unit_rate, "Per Unit Rate", class: "form-label" %>
+
+        <%= form.number_field :per_unit_rate,
+            class: "form-control",
+            step: "any",
+            placeholder: "Enter per unit rate" %>
+      </div>
+
+
+      <!-- Buttons -->
+      <div class="d-flex gap-2">
+        <%= form.submit "Create Subject",
+            class: "btn btn-primary" %>
+
+        <%= link_to "Cancel",
+            subjects_path,
+            class: "btn btn-outline-secondary" %>
+      </div>
+
+    <% end %>
+
+  </div>
 </div>

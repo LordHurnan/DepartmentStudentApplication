@@ -1,16 +1,46 @@
-<p style="color: green"><%= notice %></p>
+<p class="text-success"><%= notice %></p>
 
 <% content_for :title, "Departments" %>
 
 <h1>Departments</h1>
 
-<div id="departments">
-  <% @departments.each do |department| %>
-    <%= render department %>
-    <p>
-      <%= link_to "Show this department", department %>
-    </p>
-  <% end %>
+<div id="departments" class="table-responsive">
+  <table class="table table-striped table-hover table-bordered align-middle">
+
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Students</th>
+        <th>Teachers</th>
+        <th>Laboratories</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @departments.each do |department| %>
+        <tr id="<%= dom_id department %>">
+          <td><%= department.name %></td>
+          <td><%= department.location %></td>
+          <td><%= department.students_count %></td>
+          <td><%= department.teachers_count %></td>
+          <td><%= department.laboratory %></td>
+
+          <td class="text-nowrap">
+            <%= button_to "Show",
+                department,
+                method: :get,
+                class: "btn btn-sm btn-primary",
+                form_class: "d-inline-block" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+
+  </table>
 </div>
 
-<%= link_to "New department", new_department_path %>
+<%= link_to "New department",
+    new_department_path,
+    class: "btn btn-success" %>
