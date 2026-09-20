@@ -1,11 +1,71 @@
-<% content_for :title, "New department" %>
+<% content_for :title, "New Department" %>
 
-<h1>New department</h1>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="mb-1">New Department</h1>
+    <p class="text-muted mb-0">
+      Add a new department
+    </p>
+  </div>
 
-<%= render "form", department: @department %>
+  <%= link_to "Back to Departments",
+      departments_path,
+      class: "btn btn-outline-secondary" %>
+</div>
 
-<br>
+<div class="card shadow-sm">
+  <div class="card-header">
+    <h3 class="mb-0">Department Information</h3>
+  </div>
 
-<div>
-  <%= link_to "Back to departments", departments_path %>
+  <div class="card-body">
+
+    <%= form_with model: @department do |form| %>
+
+      <% if @department.errors.any? %>
+        <div class="alert alert-danger">
+          <h5>
+            <%= pluralize(@department.errors.count, "error") %>
+            prohibited this department from being saved:
+          </h5>
+
+          <ul class="mb-0">
+            <% @department.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <!-- Name -->
+      <div class="mb-3">
+        <%= form.label :name, "Name", class: "form-label" %>
+
+        <%= form.text_field :name,
+            class: "form-control",
+            placeholder: "Enter department name" %>
+      </div>
+
+      <!-- Location -->
+      <div class="mb-4">
+        <%= form.label :location, "Location", class: "form-label" %>
+
+        <%= form.text_field :location,
+            class: "form-control",
+            placeholder: "Enter department location" %>
+      </div>
+
+      <!-- Buttons -->
+      <div class="d-flex gap-2">
+        <%= form.submit "Create Department",
+            class: "btn btn-primary" %>
+
+        <%= link_to "Cancel",
+            departments_path,
+            class: "btn btn-outline-secondary" %>
+      </div>
+
+    <% end %>
+
+  </div>
 </div>

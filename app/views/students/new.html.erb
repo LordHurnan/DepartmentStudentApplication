@@ -1,11 +1,95 @@
-<% content_for :title, "New student" %>
+<% content_for :title, "New Student" %>
 
-<h1>New student</h1>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="mb-1">New Student</h1>
+    <p class="text-muted mb-0">
+      Add a new student
+    </p>
+  </div>
 
-<%= render "form", student: @student %>
+  <%= link_to "Back to Students",
+      students_path,
+      class: "btn btn-outline-secondary" %>
+</div>
 
-<br>
+<div class="card shadow-sm">
+  <div class="card-header">
+    <h3 class="mb-0">Student Information</h3>
+  </div>
 
-<div>
-  <%= link_to "Back to students", students_path %>
+  <div class="card-body">
+
+    <%= form_with model: @student do |form| %>
+
+      <% if @student.errors.any? %>
+        <div class="alert alert-danger">
+          <h5>
+            <%= pluralize(@student.errors.count, "error") %>
+            prohibited this student from being saved:
+          </h5>
+
+          <ul class="mb-0">
+            <% @student.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <!-- Name -->
+      <div class="mb-3">
+        <%= form.label :name, "Name", class: "form-label" %>
+
+        <%= form.text_field :name,
+            class: "form-control",
+            placeholder: "Enter student's name" %>
+      </div>
+
+      <!-- Year Level -->
+      <div class="mb-3">
+        <%= form.label :year_level, "Year Level", class: "form-label" %>
+
+        <%= form.number_field :year_level,
+            class: "form-control",
+            min: 1,
+            max: 5,
+            placeholder: "Enter year level" %>
+      </div>
+
+      <!-- Program -->
+      <div class="mb-3">
+        <%= form.label :program, "Program", class: "form-label" %>
+
+        <%= form.text_field :program,
+            class: "form-control",
+            placeholder: "Enter program" %>
+      </div>
+
+      <!-- Department -->
+      <div class="mb-4">
+        <%= form.label :department_id, "Department", class: "form-label" %>
+
+        <%= form.collection_select :department_id,
+            Department.order(:name),
+            :id,
+            :name,
+            { prompt: "Select Department" },
+            { class: "form-select" } %>
+      </div>
+
+
+      <!-- Buttons -->
+      <div class="d-flex gap-2">
+        <%= form.submit "Create Student",
+            class: "btn btn-primary" %>
+
+        <%= link_to "Cancel",
+            students_path,
+            class: "btn btn-outline-secondary" %>
+      </div>
+
+    <% end %>
+
+  </div>
 </div>
