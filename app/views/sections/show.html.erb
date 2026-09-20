@@ -1,38 +1,119 @@
-<p style="color: green"><%= notice %></p>
+<p class="text-success"><%= notice %></p>
 
-<%= render @section %>
+<% content_for :title, @section.name %>
 
-<div>
-  <% if @section.classlists.any? %>
-    <h3>List of Students:</h3>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="mb-1"><%= @section.name %></h1>
+    <p class="text-muted mb-0"><%= @section.subject.name %></p>
+  </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Program</th>
-          <th>Year Level</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @section.classlists.each do |classlist| %>
-          <tr>
-            <td><%= classlist.student.name %></td>
-            <td><%= classlist.student.program %></td>
-            <td><%= classlist.student.year_level %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% else %>
-    <p>No students assigned to this section.</p>
-  <% end %>
+  <%= link_to "Back to Sections",
+      sections_path,
+      class: "btn btn-outline-secondary" %>
 </div>
 
-<div>
-  <%= link_to "Edit this section", edit_section_path(@section) %> |
-  <%= link_to "Back to sections", sections_path %>
+<!-- Section Details -->
+<div class="card shadow-sm mb-4">
+  <div class="card-header">
+    <h3 class="mb-0">Section Details</h3>
+  </div>
 
-  <%= button_to "Destroy this section", @section, method: :delete %>
+  <div class="card-body">
+    <div class="row">
+
+      <div class="col-md-6">
+        <h6 class="text-muted">Name</h6>
+        <p><%= @section.name %></p>
+
+        <h6 class="text-muted">Room</h6>
+        <p><%= @section.room %></p>
+
+        <h6 class="text-muted">Timeslot</h6>
+        <p><%= @section.timeslot %></p>
+
+        <h6 class="text-muted">Subject</h6>
+        <p><%= @section.subject.name %></p>
+
+        <h6 class="text-muted">Teacher</h6>
+        <p class="mb-0"><%= @section.subject.teacher.name %></p>
+      </div>
+
+      <div class="col-md-6">
+        <h6 class="text-muted mb-3">Summary</h6>
+
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="card bg-light h-100 text-center">
+              <div class="card-body">
+                <h6 class="card-title text-muted">Students</h6>
+                <h3 class="mb-0"><%= @section.student_count %></h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Enrolled Students -->
+<div class="card shadow-sm mb-4">
+  <div class="card-header">
+    <h3 class="mb-0">Enrolled Students</h3>
+  </div>
+
+  <div class="card-body">
+    <% if @section.classlists.any? %>
+      <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th>Name</th>
+              <th>Program</th>
+              <th>Year Level</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @section.classlists.each do |classlist| %>
+              <tr id="<%= dom_id classlist %>">
+                <td><%= classlist.student.name %></td>
+                <td><%= classlist.student.program %></td>
+                <td><%= classlist.student.year_level %></td>
+                <td class="text-nowrap">
+                  <%= button_to "Delete",
+                      classlist,
+                      method: :delete,
+                      class: "btn btn-sm btn-danger",
+                      form_class: "d-inline-block" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <p class="text-muted mb-0">No students assigned to this section.</p>
+    <% end %>
+  </div>
+</div>
+
+<!-- Section Actions -->
+<div class="d-flex gap-2 mb-4">
+  <%= link_to "Edit Section",
+      edit_section_path(@section),
+      class: "btn btn-secondary" %>
+
+  <%= button_to "Delete Section",
+      @section,
+      method: :delete,
+      class: "btn btn-danger",
+      form_class: "d-inline-block" %>
+
+  <%= link_to "Back to Sections",
+      sections_path,
+      class: "btn btn-outline-secondary" %>
 </div>

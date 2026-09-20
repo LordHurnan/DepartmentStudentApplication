@@ -1,12 +1,96 @@
-<% content_for :title, "Editing section" %>
+<% content_for :title, "Edit Section" %>
 
-<h1>Editing section</h1>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="mb-1">Edit Section</h1>
+    <p class="text-muted mb-0">
+      Update section information
+    </p>
+  </div>
 
-<%= render "form", section: @section %>
+  <%= link_to "Back to Sections",
+      sections_path,
+      class: "btn btn-outline-secondary" %>
+</div>
 
-<br>
+<div class="card shadow-sm">
+  <div class="card-header">
+    <h3 class="mb-0">Section Information</h3>
+  </div>
 
-<div>
-  <%= link_to "Show this section", @section %> |
-  <%= link_to "Back to sections", sections_path %>
+  <div class="card-body">
+
+    <%= form_with model: @section do |form| %>
+
+      <% if @section.errors.any? %>
+        <div class="alert alert-danger">
+          <h5>
+            <%= pluralize(@section.errors.count, "error") %>
+            prohibited this section from being saved:
+          </h5>
+
+          <ul class="mb-0">
+            <% @section.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <!-- Name -->
+      <div class="mb-3">
+        <%= form.label :name, "Name", class: "form-label" %>
+
+        <%= form.text_field :name,
+            class: "form-control",
+            placeholder: "Enter section name" %>
+      </div>
+
+      <!-- Room -->
+      <div class="mb-3">
+        <%= form.label :room, "Room", class: "form-label" %>
+
+        <%= form.text_field :room,
+            class: "form-control",
+            placeholder: "Enter room" %>
+      </div>
+
+      <!-- Timeslot -->
+      <div class="mb-3">
+        <%= form.label :timeslot, "Timeslot", class: "form-label" %>
+
+        <%= form.text_field :timeslot,
+            class: "form-control",
+            placeholder: "Enter timeslot" %>
+      </div>
+
+      <!-- Subject -->
+      <div class="mb-4">
+        <%= form.label :subject_id, "Subject", class: "form-label" %>
+
+        <%= form.collection_select :subject_id,
+            Subject.order(:name),
+            :id,
+            :name,
+            { prompt: "Select Subject" },
+            { class: "form-select" } %>
+      </div>
+
+      <!-- Buttons -->
+      <div class="d-flex gap-2">
+        <%= form.submit "Update Section",
+            class: "btn btn-primary" %>
+
+        <%= link_to "Cancel",
+            @section,
+            class: "btn btn-outline-secondary" %>
+
+        <%= link_to "Back to Sections",
+            sections_path,
+            class: "btn btn-outline-secondary ms-auto" %>
+      </div>
+
+    <% end %>
+
+  </div>
 </div>

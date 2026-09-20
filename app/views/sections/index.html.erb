@@ -1,16 +1,58 @@
-<p style="color: green"><%= notice %></p>
+<p class="text-success"><%= notice %></p>
 
 <% content_for :title, "Sections" %>
 
 <h1>Sections</h1>
 
-<div id="sections">
-  <% @sections.each do |section| %>
-    <%= render section %>
-    <p>
-      <%= link_to "Show this section", section %>
-    </p>
-  <% end %>
+<div id="sections" class="table-responsive">
+  <table class="table table-striped table-hover table-bordered align-middle">
+
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Room</th>
+        <th>Timeslot</th>
+        <th>Subject</th>
+        <th>Students</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @sections.each do |section| %>
+        <tr id="<%= dom_id section %>">
+          <td><%= section.name %></td>
+          <td><%= section.room %></td>
+          <td><%= section.timeslot %></td>
+          <td><%= section.subject.name %></td>
+          <td><%= section.student_count %></td>
+
+          <td class="text-nowrap">
+            <%= button_to "Show",
+                section,
+                method: :get,
+                class: "btn btn-sm btn-primary",
+                form_class: "d-inline-block" %>
+
+            <%= button_to "Edit",
+                edit_section_path(section),
+                method: :get,
+                class: "btn btn-sm btn-secondary",
+                form_class: "d-inline-block" %>
+
+            <%= button_to "Delete",
+                section,
+                method: :delete,
+                class: "btn btn-sm btn-danger",
+                form_class: "d-inline-block" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+
+  </table>
 </div>
 
-<%= link_to "New section", new_section_path %>
+<%= link_to "New section",
+    new_section_path,
+    class: "btn btn-success" %>
