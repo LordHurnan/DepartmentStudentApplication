@@ -14,51 +14,79 @@
     <thead class="table-dark">
       <tr>
         <th>Student</th>
-        <th>Section</th>
-        <th>Subject</th>
+        <th>Sections</th>
+        <th>Subjects</th>
         <th>Actions</th>
       </tr>
     </thead>
 
     <tbody>
-      <% @classlists.each do |classlist| %>
-        <tr id="<%= dom_id classlist %>">
+      <% @classlists.group_by(&:student).each do |student, enrollments| %>
 
+        <tr>
+
+          <!-- Student -->
           <td>
-            <%= classlist.student.name %>
+            <%= student.name %>
           </td>
 
+          <!-- Sections -->
           <td>
-            <%= classlist.section.name %>
+            <% enrollments.each_with_index do |classlist, index| %>
+
+              <% if index > 0 %>
+                <hr class="my-2">
+              <% end %>
+
+              <%= classlist.section.name %>
+
+            <% end %>
           </td>
 
+          <!-- Subjects -->
           <td>
-            <%= classlist.section.subject.name %>
+            <% enrollments.each_with_index do |classlist, index| %>
+
+              <% if index > 0 %>
+                <hr class="my-2">
+              <% end %>
+
+              <%= classlist.section.subject.name %>
+
+            <% end %>
           </td>
 
+          <!-- Actions -->
           <td class="text-nowrap">
+            <% enrollments.each_with_index do |classlist, index| %>
 
-            <%= button_to "Show",
-                classlist,
-                method: :get,
-                class: "btn btn-sm btn-primary",
-                form_class: "d-inline-block" %>
+              <% if index > 0 %>
+                <hr class="my-2">
+              <% end %>
 
-            <%= button_to "Edit",
-                edit_classlist_path(classlist),
-                method: :get,
-                class: "btn btn-sm btn-secondary",
-                form_class: "d-inline-block" %>
+              <%= button_to "Show",
+                  classlist,
+                  method: :get,
+                  class: "btn btn-sm btn-primary",
+                  form_class: "d-inline-block" %>
 
-            <%= button_to "Delete",
-                classlist,
-                method: :delete,
-                class: "btn btn-sm btn-danger",
-                form_class: "d-inline-block" %>
+              <%= button_to "Edit",
+                  edit_classlist_path(classlist),
+                  method: :get,
+                  class: "btn btn-sm btn-secondary",
+                  form_class: "d-inline-block" %>
 
+              <%= button_to "Delete",
+                  classlist,
+                  method: :delete,
+                  class: "btn btn-sm btn-danger",
+                  form_class: "d-inline-block" %>
+
+            <% end %>
           </td>
 
         </tr>
+
       <% end %>
     </tbody>
 

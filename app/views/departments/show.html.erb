@@ -1,38 +1,60 @@
+<p class="text-success"><%= notice %></p>
+
 <% content_for :title, @department.name %>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
   <div>
     <h1 class="mb-1"><%= @department.name %></h1>
-    <p class="text-muted mb-0"><%= @department.location %></p>
+    <p class="text-muted mb-0">
+      Department | <%= @department.location %>
+    </p>
+  </div>
+
+  <div class="d-flex gap-2">
+    <%= link_to "Edit Department",
+        edit_department_path(@department),
+        class: "btn btn-primary" %>
+
+    <%= link_to "Back to Departments",
+        departments_path,
+        class: "btn btn-outline-secondary" %>
   </div>
 </div>
 
 <!-- Department Information -->
 <div class="card shadow-sm mb-4">
+
   <div class="card-header">
     <h3 class="mb-0">Department Information</h3>
   </div>
 
   <div class="card-body">
+
     <div class="row">
 
       <div class="col-md-6">
+
         <h6 class="text-muted">Name</h6>
         <p><%= @department.name %></p>
 
         <h6 class="text-muted">Location</h6>
-        <p class="mb-0"><%= @department.location %></p>
+        <p><%= @department.location %></p>
+
       </div>
 
       <div class="col-md-6">
+
         <h6 class="text-muted mb-3">Summary</h6>
 
         <div class="row g-3">
+
           <div class="col-md-4">
             <div class="card bg-light h-100 text-center">
               <div class="card-body">
-                <h6 class="card-title text-muted">Students</h6>
-                <h3 class="mb-0"><%= @department.students_count %></h3>
+                <h6 class="text-muted">Students</h6>
+                <h3 class="mb-0">
+                  <%= @department.students.count %>
+                </h3>
               </div>
             </div>
           </div>
@@ -40,8 +62,10 @@
           <div class="col-md-4">
             <div class="card bg-light h-100 text-center">
               <div class="card-body">
-                <h6 class="card-title text-muted">Teachers</h6>
-                <h3 class="mb-0"><%= @department.teachers_count %></h3>
+                <h6 class="text-muted">Teachers</h6>
+                <h3 class="mb-0">
+                  <%= @department.teachers.count %>
+                </h3>
               </div>
             </div>
           </div>
@@ -49,28 +73,38 @@
           <div class="col-md-4">
             <div class="card bg-light h-100 text-center">
               <div class="card-body">
-                <h6 class="card-title text-muted">Laboratories</h6>
-                <h3 class="mb-0"><%= @department.laboratory %></h3>
+                <h6 class="text-muted">Laboratories</h6>
+                <h3 class="mb-0">
+                  <%= @department.laboratories.count %>
+                </h3>
               </div>
             </div>
           </div>
+
         </div>
+
       </div>
 
     </div>
+
   </div>
 </div>
 
-<!-- List of Students -->
+<!-- Students -->
 <div class="card shadow-sm mb-4">
+
   <div class="card-header">
     <h3 class="mb-0">List of Students</h3>
   </div>
 
   <div class="card-body">
+
     <% if @department.students.any? %>
+
       <div class="table-responsive">
+
         <table class="table table-striped table-hover table-bordered align-middle">
+
           <thead class="table-dark">
             <tr>
               <th>Name</th>
@@ -81,39 +115,70 @@
           </thead>
 
           <tbody>
+
             <% @department.students.each do |student| %>
-              <tr id="<%= dom_id student %>">
+
+              <tr>
                 <td><%= student.name %></td>
                 <td><%= student.program %></td>
                 <td><%= student.year_level %></td>
-                <td class="text-nowrap">
-                  <%= button_to "Delete",
-                      student,
-                      method: :delete,
-                      class: "btn btn-sm btn-danger",
-                      form_class: "d-inline-block" %>
+
+                <td>
+                  <div class="d-flex gap-2">
+
+                    <%= button_to "Show",
+                        student,
+                        method: :get,
+                        class: "btn btn-sm btn-primary flex-fill" %>
+
+                    <%= button_to "Delete",
+                        student,
+                        method: :delete,
+                        class: "btn btn-sm btn-danger flex-fill",
+                        data: {
+                          turbo_confirm: "Are you sure you want to delete this student?"
+                        } %>
+
+                  </div>
                 </td>
+
               </tr>
+
             <% end %>
+
           </tbody>
+
         </table>
+
       </div>
+
     <% else %>
-      <p class="text-muted mb-0">No students in this department.</p>
+
+      <p class="text-muted mb-0">
+        No students are assigned to this department.
+      </p>
+
     <% end %>
+
   </div>
+
 </div>
 
-<!-- List of Teachers -->
+<!-- Teachers -->
 <div class="card shadow-sm mb-4">
+
   <div class="card-header">
     <h3 class="mb-0">List of Teachers</h3>
   </div>
 
   <div class="card-body">
+
     <% if @department.teachers.any? %>
+
       <div class="table-responsive">
+
         <table class="table table-striped table-hover table-bordered align-middle">
+
           <thead class="table-dark">
             <tr>
               <th>Name</th>
@@ -124,39 +189,70 @@
           </thead>
 
           <tbody>
+
             <% @department.teachers.each do |teacher| %>
-              <tr id="<%= dom_id teacher %>">
+
+              <tr>
                 <td><%= teacher.name %></td>
                 <td><%= teacher.email %></td>
                 <td><%= teacher.specialization %></td>
-                <td class="text-nowrap">
-                  <%= button_to "Delete",
-                      teacher,
-                      method: :delete,
-                      class: "btn btn-sm btn-danger",
-                      form_class: "d-inline-block" %>
+
+                <td>
+                  <div class="d-flex gap-2">
+
+                    <%= button_to "Show",
+                        teacher,
+                        method: :get,
+                        class: "btn btn-sm btn-primary flex-fill" %>
+
+                    <%= button_to "Delete",
+                        teacher,
+                        method: :delete,
+                        class: "btn btn-sm btn-danger flex-fill",
+                        data: {
+                          turbo_confirm: "Are you sure you want to delete this teacher?"
+                        } %>
+
+                  </div>
                 </td>
+
               </tr>
+
             <% end %>
+
           </tbody>
+
         </table>
+
       </div>
+
     <% else %>
-      <p class="text-muted mb-0">No teachers in this department.</p>
+
+      <p class="text-muted mb-0">
+        No teachers are assigned to this department.
+      </p>
+
     <% end %>
+
   </div>
+
 </div>
 
-<!-- List of Laboratories -->
+<!-- Laboratories -->
 <div class="card shadow-sm mb-4">
+
   <div class="card-header">
     <h3 class="mb-0">List of Laboratories</h3>
   </div>
 
   <div class="card-body">
+
     <% if @department.laboratories.any? %>
+
       <div class="table-responsive">
+
         <table class="table table-striped table-hover table-bordered align-middle">
+
           <thead class="table-dark">
             <tr>
               <th>Name</th>
@@ -166,37 +262,63 @@
           </thead>
 
           <tbody>
+
             <% @department.laboratories.each do |laboratory| %>
-              <tr id="<%= dom_id laboratory %>">
+
+              <tr>
                 <td><%= laboratory.name %></td>
                 <td><%= laboratory.location %></td>
-                <td class="text-nowrap">
-                  <%= button_to "Delete",
-                      laboratory,
-                      method: :delete,
-                      class: "btn btn-sm btn-danger",
-                      form_class: "d-inline-block" %>
+
+                <td>
+                  <div class="d-flex gap-2">
+
+                    <%= button_to "Show",
+                        laboratory,
+                        method: :get,
+                        class: "btn btn-sm btn-primary flex-fill" %>
+
+                    <%= button_to "Delete",
+                        laboratory,
+                        method: :delete,
+                        class: "btn btn-sm btn-danger flex-fill",
+                        data: {
+                          turbo_confirm: "Are you sure you want to delete this laboratory?"
+                        } %>
+
+                  </div>
                 </td>
+
               </tr>
+
             <% end %>
+
           </tbody>
+
         </table>
+
       </div>
+
     <% else %>
-      <p class="text-muted mb-0">No laboratories in this department.</p>
+
+      <p class="text-muted mb-0">
+        No laboratories are assigned to this department.
+      </p>
+
     <% end %>
+
   </div>
+
 </div>
 
 <!-- Department Actions -->
-<div class="d-flex gap-2 mb-4">
+<div class="d-flex gap-2 mt-4">
+
   <%= button_to "Delete Department",
       @department,
       method: :delete,
       class: "btn btn-danger",
-      form_class: "d-inline-block" %>
+      data: {
+        turbo_confirm: "Are you sure you want to delete this department?"
+      } %>
 
-  <%= link_to "Back to Departments",
-      departments_path,
-      class: "btn btn-outline-secondary" %>
 </div>
