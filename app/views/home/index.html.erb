@@ -1,0 +1,335 @@
+<div class="container py-5">
+  <!-- Hero Section -->
+  <div class="p-5 mb-5 bg-light rounded-3">
+    <h1 class="display-4 fw-bold">Department Management System</h1>
+
+    <p class="lead">
+      Explore departments, manage academic records, and organize resources.
+    </p>
+
+    <div class="d-flex gap-2 flex-wrap">
+      <%= link_to "Browse Students", students_path, class: "btn btn-primary" %>
+      <%= link_to "Browse Teachers", teachers_path, class: "btn btn-outline-primary" %>
+    </div>
+  </div>
+
+  <!-- Explore the Directory -->
+  <h2 class="mb-4">Explore the Directory</h2>
+
+  <div class="row g-3">
+    <!-- Departments -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <i class="bi bi-building text-primary" style="font-size: 2rem;"></i>
+            <h5 class="card-title mb-0">Departments</h5>
+          </div>
+
+          <p class="card-text">
+            View existing departments or create a new department.
+          </p>
+
+          <div class="d-flex gap-2 flex-wrap">
+            <%= link_to "View All", departments_path, class: "btn btn-primary" %>
+            <%= link_to "Add New", new_department_path, class: "btn btn-outline-success" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Students -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <i class="bi bi-people-fill text-primary" style="font-size: 2rem;"></i>
+            <h5 class="card-title mb-0">Students</h5>
+          </div>
+
+          <p class="card-text">
+            Browse and manage student academic records.
+          </p>
+
+          <div class="d-flex gap-2 flex-wrap">
+            <%= link_to "View All", students_path, class: "btn btn-primary" %>
+            <%= link_to "Add New", new_student_path, class: "btn btn-outline-success" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Teachers -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <i class="bi bi-person-workspace text-success" style="font-size: 2rem;"></i>
+            <h5 class="card-title mb-0">Teachers</h5>
+          </div>
+
+          <p class="card-text">
+            Browse and manage faculty records.
+          </p>
+
+          <div class="d-flex gap-2 flex-wrap">
+            <%= link_to "View All", teachers_path, class: "btn btn-primary" %>
+            <%= link_to "Add New", new_teacher_path, class: "btn btn-outline-success" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subjects -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <i class="bi bi-book-half text-info" style="font-size: 2rem;"></i>
+            <h5 class="card-title mb-0">Subjects</h5>
+          </div>
+
+          <p class="card-text">
+            Explore subjects and their academic details.
+          </p>
+
+          <div class="d-flex gap-2 flex-wrap">
+            <%= link_to "View All", subjects_path, class: "btn btn-primary" %>
+            <%= link_to "Add New", new_subject_path, class: "btn btn-outline-success" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sections -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <i class="bi bi-collection-fill text-danger" style="font-size: 2rem;"></i>
+            <h5 class="card-title mb-0">Sections</h5>
+          </div>
+
+          <p class="card-text">
+            View class sections, rooms, and schedules.
+          </p>
+
+          <div class="d-flex gap-2 flex-wrap">
+            <%= link_to "View All", sections_path, class: "btn btn-primary" %>
+            <%= link_to "Add New", new_section_path, class: "btn btn-outline-success" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Laboratories -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <i class="bi bi-pc-display text-secondary" style="font-size: 2rem;"></i>
+            <h5 class="card-title mb-0">Laboratories</h5>
+          </div>
+
+          <p class="card-text">
+            Browse and manage laboratory resources.
+          </p>
+
+          <div class="d-flex gap-2 flex-wrap">
+            <%= link_to "View All", laboratories_path, class: "btn btn-primary" %>
+            <%= link_to "Add New", new_laboratory_path, class: "btn btn-outline-success" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Class Lists -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <i class="bi bi-card-checklist text-primary" style="font-size: 2rem;"></i>
+            <h5 class="card-title mb-0">Class Lists</h5>
+          </div>
+
+          <p class="card-text">
+            View student enrollments in class sections.
+          </p>
+
+          <div class="d-flex gap-2 flex-wrap">
+            <%= link_to "View All", classlists_path, class: "btn btn-primary" %>
+            <%= link_to "Add New", new_classlist_path, class: "btn btn-outline-success" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Directory Overview -->
+  <h2 class="mt-5 mb-4">Directory Overview</h2>
+
+  <div class="row g-3">
+    <!-- Students -->
+    <div class="col-6 col-md-4 col-xl-2">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="card-body position-relative p-3">
+          <span class="position-absolute top-0 end-0 m-2 rounded-circle bg-light text-secondary d-flex align-items-center justify-content-center"
+                style="width: 38px; height: 38px; font-size: 0.9rem; font-weight: 600;">
+            <%= @student_count %>
+          </span>
+
+          <div class="text-primary mb-3">
+            <i class="bi bi-people-fill" style="font-size: 2rem;"></i>
+          </div>
+
+          <h6 class="card-title mb-0">Students</h6>
+        </div>
+      </div>
+    </div>
+
+    <!-- Teachers -->
+    <div class="col-6 col-md-4 col-xl-2">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="card-body position-relative p-3">
+          <span class="position-absolute top-0 end-0 m-2 rounded-circle bg-light text-secondary d-flex align-items-center justify-content-center"
+                style="width: 38px; height: 38px; font-size: 0.9rem; font-weight: 600;">
+            <%= @teacher_count %>
+          </span>
+
+          <div class="text-success mb-3">
+            <i class="bi bi-person-workspace" style="font-size: 2rem;"></i>
+          </div>
+
+          <h6 class="card-title mb-0">Teachers</h6>
+        </div>
+      </div>
+    </div>
+
+    <!-- Departments -->
+    <div class="col-6 col-md-4 col-xl-2">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="card-body position-relative p-3">
+          <span class="position-absolute top-0 end-0 m-2 rounded-circle bg-light text-secondary d-flex align-items-center justify-content-center"
+                style="width: 38px; height: 38px; font-size: 0.9rem; font-weight: 600;">
+            <%= @department_count %>
+          </span>
+
+          <div class="text-warning mb-3">
+            <i class="bi bi-building" style="font-size: 2rem;"></i>
+          </div>
+
+          <h6 class="card-title mb-0">Departments</h6>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subjects -->
+    <div class="col-6 col-md-4 col-xl-2">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="card-body position-relative p-3">
+          <span class="position-absolute top-0 end-0 m-2 rounded-circle bg-light text-secondary d-flex align-items-center justify-content-center"
+                style="width: 38px; height: 38px; font-size: 0.9rem; font-weight: 600;">
+            <%= @subject_count %>
+          </span>
+
+          <div class="text-info mb-3">
+            <i class="bi bi-book-half" style="font-size: 2rem;"></i>
+          </div>
+
+          <h6 class="card-title mb-0">Subjects</h6>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sections -->
+    <div class="col-6 col-md-4 col-xl-2">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="card-body position-relative p-3">
+          <span class="position-absolute top-0 end-0 m-2 rounded-circle bg-light text-secondary d-flex align-items-center justify-content-center"
+                style="width: 38px; height: 38px; font-size: 0.9rem; font-weight: 600;">
+            <%= @section_count %>
+          </span>
+
+          <div class="text-danger mb-3">
+            <i class="bi bi-collection-fill" style="font-size: 2rem;"></i>
+          </div>
+
+          <h6 class="card-title mb-0">Sections</h6>
+        </div>
+      </div>
+    </div>
+
+    <!-- Laboratories -->
+    <div class="col-6 col-md-4 col-xl-2">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="card-body position-relative p-3">
+          <span class="position-absolute top-0 end-0 m-2 rounded-circle bg-light text-secondary d-flex align-items-center justify-content-center"
+                style="width: 38px; height: 38px; font-size: 0.9rem; font-weight: 600;">
+            <%= @laboratory_count %>
+          </span>
+
+          <div class="text-secondary mb-3">
+            <i class="bi bi-pc-display" style="font-size: 2rem;"></i>
+          </div>
+
+          <h6 class="card-title mb-0">Laboratories</h6>
+        </div>
+      </div>
+    </div>
+
+    <!-- Class Lists -->
+    <div class="col-6 col-md-4 col-xl-2">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="card-body position-relative p-3">
+          <span class="position-absolute top-0 end-0 m-2 rounded-circle bg-light text-secondary d-flex align-items-center justify-content-center"
+                style="width: 38px; height: 38px; font-size: 0.9rem; font-weight: 600;">
+            <%= @classlist_count %>
+          </span>
+
+          <div class="text-primary mb-3">
+            <i class="bi bi-card-checklist" style="font-size: 2rem;"></i>
+          </div>
+
+          <h6 class="card-title mb-0">Class Lists</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Meet Our Faculty -->
+  <div class="d-flex justify-content-between align-items-center mt-5 mb-4 flex-wrap gap-2">
+    <h2 class="mb-0">Meet Our Faculty</h2>
+    <%= link_to "View All Teachers", teachers_path, class: "btn btn-outline-primary" %>
+  </div>
+
+  <div class="row g-3">
+    <% @teachers.each do |teacher| %>
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm border-0">
+          <div class="card-body">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <div class="rounded-circle bg-light text-primary d-flex align-items-center justify-content-center"
+                   style="width: 55px; height: 55px; flex-shrink: 0;">
+                <i class="bi bi-person-fill" style="font-size: 1.8rem;"></i>
+              </div>
+
+              <div>
+                <h5 class="card-title mb-1"><%= teacher.name %></h5>
+                <p class="text-muted small mb-0">Faculty Member</p>
+              </div>
+            </div>
+
+            <% if teacher.department.present? %>
+              <p class="mb-3">
+                <i class="bi bi-building me-2"></i>
+                <%= teacher.department.name %>
+              </p>
+            <% end %>
+
+            <%= link_to "View Profile", teacher_path(teacher), class: "btn btn-sm btn-outline-primary" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
