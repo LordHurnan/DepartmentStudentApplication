@@ -7,11 +7,10 @@
       Explore departments, manage academic records, and organize resources.
     </p>
 
-    <div class="d-flex gap-2 flex-wrap">
-      <%= link_to "Browse Students", students_path, class: "btn btn-primary" %>
-      <%= link_to "Browse Teachers", teachers_path, class: "btn btn-outline-primary" %>
-    </div>
-  </div>
+   <div class="d-flex gap-2 flex-wrap">
+  <%= link_to "Browse Students", students_path, class: "btn btn-primary" %>
+  <%= link_to "Browse Teachers", teachers_path, class: "btn btn-outline-secondary btn-lg" %>
+</div> 
 
   <!-- Explore the Directory -->
   <h2 class="mb-4">Explore the Directory</h2>
@@ -20,7 +19,7 @@
     <!-- Departments -->
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card h-100 shadow-sm border-0">
-        <div class="card-body">
+        <div class="card-body text-center">
           <div class="d-flex align-items-center gap-2 mb-3">
             <i class="bi bi-building text-primary" style="font-size: 2rem;"></i>
             <h5 class="card-title mb-0">Departments</h5>
@@ -41,12 +40,13 @@
     <!-- Students -->
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card h-100 shadow-sm border-0">
-        <div class="card-body">
+        <div class="card-body text-center">
           <div class="d-flex align-items-center gap-2 mb-3">
             <i class="bi bi-people-fill text-primary" style="font-size: 2rem;"></i>
             <h5 class="card-title mb-0">Students</h5>
           </div>
 
+          
           <p class="card-text">
             Browse and manage student academic records.
           </p>
@@ -62,7 +62,7 @@
     <!-- Teachers -->
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card h-100 shadow-sm border-0">
-        <div class="card-body">
+        <div class="card-body text-center">
           <div class="d-flex align-items-center gap-2 mb-3">
             <i class="bi bi-person-workspace text-success" style="font-size: 2rem;"></i>
             <h5 class="card-title mb-0">Teachers</h5>
@@ -83,7 +83,7 @@
     <!-- Subjects -->
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card h-100 shadow-sm border-0">
-        <div class="card-body">
+        <div class="card-body text-center">
           <div class="d-flex align-items-center gap-2 mb-3">
             <i class="bi bi-book-half text-info" style="font-size: 2rem;"></i>
             <h5 class="card-title mb-0">Subjects</h5>
@@ -104,7 +104,7 @@
     <!-- Sections -->
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card h-100 shadow-sm border-0">
-        <div class="card-body">
+        <div class="card-body text-center">
           <div class="d-flex align-items-center gap-2 mb-3">
             <i class="bi bi-collection-fill text-danger" style="font-size: 2rem;"></i>
             <h5 class="card-title mb-0">Sections</h5>
@@ -125,7 +125,7 @@
     <!-- Laboratories -->
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card h-100 shadow-sm border-0">
-        <div class="card-body">
+      <div class="card-body text-center">
           <div class="d-flex align-items-center gap-2 mb-3">
             <i class="bi bi-pc-display text-secondary" style="font-size: 2rem;"></i>
             <h5 class="card-title mb-0">Laboratories</h5>
