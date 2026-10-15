@@ -8,6 +8,6 @@ class HomeController < ApplicationController
     @laboratory_count = Laboratory.count
     @classlist_count = Classlist.count
 
-    @teachers = Teacher.includes(:department).limit(3)
+    @teachers = Teacher.includes(:department).limit(6)
   end
 end
