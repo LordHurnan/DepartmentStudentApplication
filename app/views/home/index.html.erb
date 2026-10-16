@@ -1,17 +1,20 @@
 <div class="container py-5">
   <!-- Hero Section -->
   <div class="p-5 mb-5 bg-light rounded-3">
-    <h1 class="display-4 fw-bold">Department Management System</h1>
+    <h1 class="display-4 fw-bold mb-3">
+      Department Management System
+    </h1>
 
-    <p class="lead">
+    <p class="lead mb-4">
       Explore departments, manage academic records, and organize resources.
     </p>
 
-   <div class="d-flex gap-2 flex-wrap">
-    <%= link_to "Browse Students", students_path, class: "btn btn-primary btn-lg" %>
+    <div class="d-flex gap-2 flex-wrap">
+      <%= link_to "Browse Students", students_path, class: "btn btn-primary btn-lg" %>
 
-    <%= link_to "Browse Teachers", teachers_path, class: "btn btn-outline-secondary btn-lg" %>
-</div>
+      <%= link_to "Browse Teachers", teachers_path, class: "btn btn-outline-secondary btn-lg" %>
+    </div>
+  </div>
 
   <!-- Explore the Directory -->
   <h2 class="mb-4">Explore the Directory</h2>
@@ -47,7 +50,6 @@
             <h5 class="card-title mb-0">Students</h5>
           </div>
 
-          
           <p class="card-text">
             Browse and manage student academic records.
           </p>
@@ -126,7 +128,7 @@
     <!-- Laboratories -->
     <div class="col-sm-6 col-lg-4">
       <div class="card h-100 shadow-sm border-0">
-      <div class="card-body text-center">
+        <div class="card-body text-center">
           <div class="d-flex align-items-center gap-2 mb-3">
             <i class="bi bi-pc-display text-secondary" style="font-size: 2rem;"></i>
             <h5 class="card-title mb-0">Laboratories</h5>

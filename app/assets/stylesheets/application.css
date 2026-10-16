@@ -1,10 +1,171 @@
-/*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
- */
+body,
+main,
+.card,
+.bg-light,
+.table,
+.form-control,
+.form-select {
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Light theme */
+html[data-theme="light"] body {
+  background-color: #ffffff;
+  color: #212529;
+}
+
+/* Dark theme */
+html[data-theme="dark"] body {
+  background-color: #121212;
+  color: #f1f1f1;
+}
+
+html[data-theme="dark"] main {
+  background-color: #121212;
+  color: #f1f1f1;
+}
+
+html[data-theme="dark"] .bg-light {
+  background-color: #242424 !important;
+  color: #f1f1f1 !important;
+}
+
+html[data-theme="dark"] .card {
+  background-color: #1e1e1e;
+  color: #f1f1f1;
+  border-color: #383838 !important;
+}
+
+html[data-theme="dark"] .text-muted {
+  color: #bdbdbd !important;
+}
+
+html[data-theme="dark"] .text-secondary {
+  color: #c0c0c0 !important;
+}
+
+html[data-theme="dark"] .table {
+  --bs-table-bg: #1e1e1e;
+  --bs-table-color: #f1f1f1;
+  --bs-table-border-color: #444;
+}
+
+html[data-theme="dark"] .form-control,
+html[data-theme="dark"] .form-select {
+  background-color: #292929;
+  color: #f1f1f1;
+  border-color: #555;
+}
+
+html[data-theme="dark"] .form-control::placeholder {
+  color: #bbb;
+}
+
+html[data-theme="dark"] input,
+html[data-theme="dark"] textarea {
+  color-scheme: dark;
+}
+
+html[data-theme="dark"] a:not(.btn):not(.nav-link) {
+  color: #8ab4f8;
+}
+
+html[data-theme="dark"] .btn-outline-secondary {
+  color: #e0e0e0;
+  border-color: #777;
+}
+
+html[data-theme="dark"] .btn-outline-secondary:hover {
+  background-color: #383838;
+  color: #fff;
+}
+
+html[data-theme="dark"] .alert {
+  background-color: #242424;
+  color: #f1f1f1;
+  border-color: #444;
+}
+
+/* Smooth theme transitions */
+body,
+main,
+.card,
+.bg-light,
+.table,
+.form-control,
+.form-select {
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Dark page background and text */
+html[data-theme="dark"] body {
+  background-color: #121212 !important;
+  color: #f1f1f1 !important;
+}
+
+html[data-theme="dark"] main {
+  background-color: #121212;
+  color: #f1f1f1;
+}
+
+/* Hero section and other light backgrounds */
+html[data-theme="dark"] .bg-light {
+  background-color: #242424 !important;
+  color: #f1f1f1 !important;
+}
+
+/* Cards */
+html[data-theme="dark"] .card {
+  background-color: #1e1e1e !important;
+  color: #f1f1f1 !important;
+  border-color: #383838 !important;
+}
+
+html[data-theme="dark"] .card-body,
+html[data-theme="dark"] .card-title,
+html[data-theme="dark"] .card-text {
+  color: #f1f1f1;
+}
+
+/* Tables */
+html[data-theme="dark"] .table {
+  --bs-table-bg: #1e1e1e;
+  --bs-table-color: #f1f1f1;
+  --bs-table-border-color: #444;
+}
+
+/* Forms */
+html[data-theme="dark"] .form-control,
+html[data-theme="dark"] .form-select {
+  background-color: #292929;
+  color: #f1f1f1;
+  border-color: #555;
+}
+
+/* Muted text */
+html[data-theme="dark"] .text-muted,
+html[data-theme="dark"] .text-secondary {
+  color: #bdbdbd !important;
+}
+
+/* Links */
+html[data-theme="dark"] a:not(.btn):not(.nav-link) {
+  color: #8ab4f8;
+}
+
+/* Theme button */
+html[data-theme="dark"] #theme-toggle {
+  color: #f1f1f1;
+  border-color: #777;
+}
+
+html[data-theme="dark"] #theme-toggle:hover {
+  background-color: #333;
+}
+
+/* Alerts */
+html[data-theme="dark"] .alert {
+  background-color: #242424;
+  color: #f1f1f1;
+  border-color: #444;
+}
