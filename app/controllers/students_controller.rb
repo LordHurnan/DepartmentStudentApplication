@@ -1,9 +1,11 @@
 class StudentsController < ApplicationController
+  include Pagy::Method
+
   before_action :set_student, only: %i[ show edit update destroy ]
 
   # GET /students or /students.json
   def index
-    @students = Student.all
+    @pagy, @students = pagy(:offset, Student.order(:id), limit: 10)
   end
 
   # GET /students/1 or /students/1.json
@@ -27,21 +29,21 @@ class StudentsController < ApplicationController
     department = Department.find_by(id: params[:from_department])
 
     respond_to do |format|
-    if @student.save
-      format.html { redirect_to department || @student, notice: "Student was successfully created." }
-      format.json { render :show, status: :created, location: @student }
-    else
-      format.html do
-        if department
-          redirect_to department, alert: @student.errors.full_messages.to_sentence, status: :see_other
-        else
-          render :new, status: :unprocessable_entity
+      if @student.save
+        format.html { redirect_to department || @student, notice: "Student was successfully created." }
+        format.json { render :show, status: :created, location: @student }
+      else
+        format.html do
+          if department
+            redirect_to department, alert: @student.errors.full_messages.to_sentence, status: :see_other
+          else
+            render :new, status: :unprocessable_entity
+          end
         end
+        format.json { render json: @student.errors, status: :unprocessable_entity }
       end
-      format.json { render json: @student.errors, status: :unprocessable_entity }
     end
   end
-end
 
   # PATCH/PUT /students/1 or /students/1.json
   def update
@@ -50,8 +52,8 @@ end
         format.html { redirect_to @student, notice: "Student was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @student }
       else
-        format.html { render :edit, status: :unprocessable_content }
-        format.json { render json: @student.errors, status: :unprocessable_content }
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @student.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -62,8 +64,8 @@ end
     @student.destroy!
 
     respond_to do |format|
-    format.html { redirect_to department || students_path, notice: "Student was successfully destroyed.", status: :see_other }
-    format.json { head :no_content }
+      format.html { redirect_to department || students_path, notice: "Student was successfully destroyed.", status: :see_other }
+      format.json { head :no_content }
     end
   end
 

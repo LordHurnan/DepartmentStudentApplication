@@ -1,114 +1,39 @@
+/* =========================================
+   GENERAL THEME TRANSITIONS
+========================================= */
+
 body,
 main,
 .card,
 .bg-light,
 .table,
 .form-control,
-.form-select {
+.form-select,
+.pagination {
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* Light theme */
+/* =========================================
+   LIGHT THEME
+========================================= */
+
 html[data-theme="light"] body {
   background-color: #ffffff;
   color: #212529;
 }
 
-/* Dark theme */
-html[data-theme="dark"] body {
-  background-color: #121212;
-  color: #f1f1f1;
-}
+/* =========================================
+   DARK THEME
+========================================= */
 
+/* Main page */
+html[data-theme="dark"] body,
 html[data-theme="dark"] main {
-  background-color: #121212;
-  color: #f1f1f1;
-}
-
-html[data-theme="dark"] .bg-light {
-  background-color: #242424 !important;
-  color: #f1f1f1 !important;
-}
-
-html[data-theme="dark"] .card {
-  background-color: #1e1e1e;
-  color: #f1f1f1;
-  border-color: #383838 !important;
-}
-
-html[data-theme="dark"] .text-muted {
-  color: #bdbdbd !important;
-}
-
-html[data-theme="dark"] .text-secondary {
-  color: #c0c0c0 !important;
-}
-
-html[data-theme="dark"] .table {
-  --bs-table-bg: #1e1e1e;
-  --bs-table-color: #f1f1f1;
-  --bs-table-border-color: #444;
-}
-
-html[data-theme="dark"] .form-control,
-html[data-theme="dark"] .form-select {
-  background-color: #292929;
-  color: #f1f1f1;
-  border-color: #555;
-}
-
-html[data-theme="dark"] .form-control::placeholder {
-  color: #bbb;
-}
-
-html[data-theme="dark"] input,
-html[data-theme="dark"] textarea {
-  color-scheme: dark;
-}
-
-html[data-theme="dark"] a:not(.btn):not(.nav-link) {
-  color: #8ab4f8;
-}
-
-html[data-theme="dark"] .btn-outline-secondary {
-  color: #e0e0e0;
-  border-color: #777;
-}
-
-html[data-theme="dark"] .btn-outline-secondary:hover {
-  background-color: #383838;
-  color: #fff;
-}
-
-html[data-theme="dark"] .alert {
-  background-color: #242424;
-  color: #f1f1f1;
-  border-color: #444;
-}
-
-/* Smooth theme transitions */
-body,
-main,
-.card,
-.bg-light,
-.table,
-.form-control,
-.form-select {
-  transition: background-color 0.25s ease, color 0.25s ease;
-}
-
-/* Dark page background and text */
-html[data-theme="dark"] body {
   background-color: #121212 !important;
   color: #f1f1f1 !important;
 }
 
-html[data-theme="dark"] main {
-  background-color: #121212;
-  color: #f1f1f1;
-}
-
-/* Hero section and other light backgrounds */
+/* Light backgrounds */
 html[data-theme="dark"] .bg-light {
   background-color: #242424 !important;
   color: #f1f1f1 !important;
@@ -124,48 +49,152 @@ html[data-theme="dark"] .card {
 html[data-theme="dark"] .card-body,
 html[data-theme="dark"] .card-title,
 html[data-theme="dark"] .card-text {
-  color: #f1f1f1;
+  color: #f1f1f1 !important;
 }
 
-/* Tables */
+/* =========================================
+   TABLES - DARK MODE FIX
+========================================= */
+
 html[data-theme="dark"] .table {
   --bs-table-bg: #1e1e1e;
   --bs-table-color: #f1f1f1;
-  --bs-table-border-color: #444;
+  --bs-table-striped-bg: #292929;
+  --bs-table-striped-color: #f1f1f1;
+  --bs-table-hover-bg: #383838;
+  --bs-table-hover-color: #ffffff;
+  --bs-table-border-color: #444444;
+
+  color: #f1f1f1 !important;
+  border-color: #444444 !important;
 }
 
-/* Forms */
+/* Force all table cells to use readable text */
+html[data-theme="dark"] .table > :not(caption) > * > * {
+  color: #f1f1f1 !important;
+  border-color: #444444 !important;
+  box-shadow: none;
+}
+
+/* Alternating row backgrounds */
+html[data-theme="dark"] .table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: #292929 !important;
+  color: #f1f1f1 !important;
+}
+
+html[data-theme="dark"] .table-striped > tbody > tr:nth-of-type(even) > * {
+  background-color: #1e1e1e !important;
+  color: #f1f1f1 !important;
+}
+
+/* Hover effect */
+html[data-theme="dark"] .table-hover > tbody > tr:hover > * {
+  background-color: #383838 !important;
+  color: #ffffff !important;
+}
+
+/* Table headers */
+html[data-theme="dark"] .table thead th {
+  background-color: #212529 !important;
+  color: #ffffff !important;
+}
+
+/* =========================================
+   FORMS
+========================================= */
+
 html[data-theme="dark"] .form-control,
 html[data-theme="dark"] .form-select {
-  background-color: #292929;
-  color: #f1f1f1;
-  border-color: #555;
+  background-color: #292929 !important;
+  color: #f1f1f1 !important;
+  border-color: #555555 !important;
 }
 
-/* Muted text */
-html[data-theme="dark"] .text-muted,
-html[data-theme="dark"] .text-secondary {
+html[data-theme="dark"] .form-control::placeholder {
+  color: #bbbbbb !important;
+}
+
+html[data-theme="dark"] input,
+html[data-theme="dark"] textarea {
+  color-scheme: dark;
+}
+
+/* =========================================
+   TEXT COLORS
+========================================= */
+
+html[data-theme="dark"] .text-muted {
   color: #bdbdbd !important;
 }
 
-/* Links */
-html[data-theme="dark"] a:not(.btn):not(.nav-link) {
+html[data-theme="dark"] .text-secondary {
+  color: #c0c0c0 !important;
+}
+
+/* =========================================
+   LINKS
+========================================= */
+
+html[data-theme="dark"] a:not(.btn):not(.nav-link):not(.page-link) {
   color: #8ab4f8;
 }
 
-/* Theme button */
+/* =========================================
+   BUTTONS
+========================================= */
+
+html[data-theme="dark"] .btn-outline-secondary {
+  color: #e0e0e0;
+  border-color: #777777;
+}
+
+html[data-theme="dark"] .btn-outline-secondary:hover {
+  background-color: #383838;
+  color: #ffffff;
+}
+
 html[data-theme="dark"] #theme-toggle {
   color: #f1f1f1;
-  border-color: #777;
+  border-color: #777777;
 }
 
 html[data-theme="dark"] #theme-toggle:hover {
-  background-color: #333;
+  background-color: #333333;
 }
 
-/* Alerts */
+/* =========================================
+   PAGINATION
+========================================= */
+
+html[data-theme="dark"] .pagination .page-link {
+  background-color: #242424;
+  color: #8ab4f8;
+  border-color: #444444;
+}
+
+html[data-theme="dark"] .pagination .page-link:hover {
+  background-color: #383838;
+  color: #ffffff;
+}
+
+html[data-theme="dark"] .pagination .active .page-link {
+  background-color: #0d6efd;
+  color: #ffffff;
+  border-color: #0d6efd;
+}
+
+html[data-theme="dark"] .pagination .disabled .page-link {
+  background-color: #1e1e1e;
+  color: #777777;
+  border-color: #444444;
+}
+
+/* =========================================
+   ALERTS
+========================================= */
+
 html[data-theme="dark"] .alert {
   background-color: #242424;
   color: #f1f1f1;
-  border-color: #444;
+  border-color: #444444;
 }
