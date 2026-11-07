@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_18_114802) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_07_075140) do
   create_table "classlists", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "section_id", null: false
@@ -53,6 +53,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_18_114802) do
   create_table "students", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "department_id", null: false
+    t.string "faker_identifier"
     t.string "name"
     t.integer "number_of_units", default: 0
     t.string "program"
@@ -89,6 +90,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_18_114802) do
   add_foreign_key "classlists", "sections"
   add_foreign_key "classlists", "students"
   add_foreign_key "laboratories", "departments"
+  add_foreign_key "sections", "subjects"
   add_foreign_key "students", "departments"
   add_foreign_key "subjects", "teachers"
   add_foreign_key "teachers", "departments"
