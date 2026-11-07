@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_07_075140) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_07_093404) do
   create_table "classlists", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "section_id", null: false
@@ -57,11 +57,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_07_075140) do
     t.string "name"
     t.integer "number_of_units", default: 0
     t.string "program"
+    t.string "slug"
     t.integer "subject_count", default: 0
     t.float "tuition_fee", limit: 53, default: 0.0
     t.datetime "updated_at", null: false
     t.integer "year_level"
     t.index ["department_id"], name: "index_students_on_department_id"
+    t.index ["slug"], name: "index_students_on_slug", unique: true
   end
 
   create_table "subjects", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -82,9 +84,21 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_07_075140) do
     t.decimal "monthly_salary", precision: 10
     t.string "name"
     t.decimal "per_unit_rate", precision: 10
+    t.string "slug"
     t.string "specialization"
     t.datetime "updated_at", null: false
     t.index ["department_id"], name: "index_teachers_on_department_id"
+    t.index ["slug"], name: "index_teachers_on_slug", unique: true
+  end
+
+  create_table "versions", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.datetime "created_at"
+    t.string "event", null: false
+    t.bigint "item_id", null: false
+    t.string "item_type", limit: 191, null: false
+    t.text "object", size: :long
+    t.string "whodunnit"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
   add_foreign_key "classlists", "sections"

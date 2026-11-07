@@ -42,6 +42,11 @@ gem "image_processing", "~> 1.2"
 
 gem "pagy", "~> 43.8.1"
 gem "faker"
+gem "chartkick"
+gem "paper_trail"
+gem "rqrcode"
+gem "friendly_id"
+
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
