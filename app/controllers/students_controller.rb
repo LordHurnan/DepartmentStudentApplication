@@ -1,29 +1,29 @@
+require "rqrcode"
+
 class StudentsController < ApplicationController
   include Pagy::Method
 
   before_action :set_student, only: %i[ show edit update destroy ]
 
-  # GET /students or /students.json
   def index
     @pagy, @students = pagy(:offset, Student.order(:id), limit: 10)
   end
 
-  # GET /students/1 or /students/1.json
   def show
     @classlist = Classlist.new(student: @student)
     @available_sections = Section.where.not(id: @student.section_ids).order(:name)
+
+    @student_url = student_url(@student)
+    @qr_code = RQRCode::QRCode.new(@student_url)
   end
 
-  # GET /students/new
   def new
     @student = Student.new
   end
 
-  # GET /students/1/edit
   def edit
   end
 
-  # POST /students or /students.json
   def create
     @student = Student.new(student_params)
     department = Department.find_by(id: params[:from_department])
@@ -45,7 +45,6 @@ class StudentsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /students/1 or /students/1.json
   def update
     respond_to do |format|
       if @student.update(student_params)
@@ -58,7 +57,6 @@ class StudentsController < ApplicationController
     end
   end
 
-  # DELETE /students/1 or /students/1.json
   def destroy
     department = Department.find_by(id: params[:from_department])
     @student.destroy!
@@ -71,12 +69,10 @@ class StudentsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_student
-    @student = Student.find(params.expect(:id))
+    @student = Student.friendly.find(params.expect(:id))
   end
 
-  # Only allow a list of trusted parameters through.
   def student_params
     params.expect(student: [ :name, :year_level, :program, :department_id ])
   end

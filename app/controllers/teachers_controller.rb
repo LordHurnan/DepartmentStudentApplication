@@ -1,25 +1,22 @@
 class TeachersController < ApplicationController
   before_action :set_teacher, only: %i[ show edit update destroy remove_subject ]
 
-  # GET /teachers or /teachers.json
   def index
     @teachers = Teacher.all
   end
 
-  # GET /teachers/1 or /teachers/1.json
   def show
+    @teacher_url = teacher_url(@teacher)
+    @qr_code = RQRCode::QRCode.new(@teacher_url)
   end
 
-  # GET /teachers/new
   def new
     @teacher = Teacher.new
   end
 
-  # GET /teachers/1/edit
   def edit
   end
 
-  # POST /teachers or /teachers.json
   def create
     @teacher = Teacher.new(teacher_params)
     department = Department.find_by(id: params[:from_department])
@@ -44,7 +41,6 @@ class TeachersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /teachers/1 or /teachers/1.json
   def update
     respond_to do |format|
       if @teacher.update(teacher_params)
@@ -73,7 +69,6 @@ class TeachersController < ApplicationController
     end
   end
 
-  # DELETE /teachers/1 or /teachers/1.json
   def destroy
     department = Department.find_by(id: params[:from_department])
     @teacher.destroy!
@@ -91,7 +86,6 @@ class TeachersController < ApplicationController
     end
   end
 
-  # DELETE /teachers/:id/remove_subject
   def remove_subject
     subject = @teacher.subjects.find(params[:subject_id])
 
@@ -107,7 +101,7 @@ class TeachersController < ApplicationController
   private
 
   def set_teacher
-    @teacher = Teacher.find(params.expect(:id))
+    @teacher = Teacher.friendly.find(params.expect(:id))
   end
 
   def teacher_params

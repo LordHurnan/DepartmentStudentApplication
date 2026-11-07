@@ -1,4 +1,12 @@
+require "friendly_id"
+
 class Teacher < ApplicationRecord
+  extend FriendlyId
+
+  has_paper_trail
+
+  friendly_id :name, use: :slugged
+
   belongs_to :department, counter_cache: :teachers_count
   has_many :subjects, dependent: :destroy
 
