@@ -6,4 +6,8 @@ class Department < ApplicationRecord
   def display_info
     "#{name} (#{students_count} students, #{teachers_count} teachers, #{laboratory} labs)"
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+  %w[id name]
+  end
 end

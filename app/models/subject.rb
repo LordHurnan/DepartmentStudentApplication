@@ -7,6 +7,14 @@ class Subject < ApplicationRecord
   before_destroy :store_teacher
   after_destroy :update_stored_teacher_salary
 
+  def self.ransackable_attributes(auth_object = nil)
+    %w[name teacher_id number_of_units per_unit_rate section_count]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[teacher sections]
+  end
+
   private
 
   def update_after_change

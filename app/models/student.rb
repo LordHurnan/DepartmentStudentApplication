@@ -15,6 +15,19 @@ class Student < ApplicationRecord
   after_destroy :decrement_department_count
   after_update :department_was_changed
 
+  # Ransack: allowlist what can be searched/filtered
+  def self.ransackable_attributes(auth_object = nil)
+    %w[name department_id created_at]
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[name year_level program department_id]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[department sections]
+  end
+
   def display_name
     [ department&.name, name ].compact_blank.join(" - ")
   end

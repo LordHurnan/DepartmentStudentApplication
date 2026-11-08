@@ -4,6 +4,24 @@
 
 <h1>Teachers</h1>
 
+<%= search_form_for @q, url: teachers_path, class: "card card-body mb-4" do |f| %>
+  <div class="row g-3 align-items-end">
+    <div class="col-md-5">
+      <%= f.label :name_cont, "Search", class: "form-label" %>
+      <%= f.search_field :name_cont, class: "form-control", placeholder: "Teacher name..." %>
+    </div>
+    <div class="col-md-4">
+      <%= f.label :department_id_eq, "Department", class: "form-label" %>
+      <%= f.collection_select :department_id_eq, Department.order(:name), :id, :name,
+            { include_blank: "All departments" }, { class: "form-select" } %>
+    </div>
+    <div class="col-md-3 d-flex gap-2">
+      <%= f.submit "Search", class: "btn btn-primary" %>
+      <%= link_to "Reset", teachers_path, class: "btn btn-outline-secondary" %>
+    </div>
+  </div>
+<% end %>
+
 <div id="teachers" class="table-responsive">
   <table class="table table-striped table-hover table-bordered align-middle">
 
@@ -69,6 +87,10 @@
     </tbody>
 
   </table>
+</div>
+
+<div class="d-flex justify-content-center mt-3">
+  <%== @pagy.series_nav(:bootstrap) %>
 </div>
 
 <%= link_to "New teacher",

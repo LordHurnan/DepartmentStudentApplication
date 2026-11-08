@@ -4,6 +4,36 @@
 
 <h1>Students</h1>
 
+<%= search_form_for @q, class: "card card-body mb-4" do |f| %>
+  <div class="row g-3 align-items-end">
+    <div class="col-md-4">
+      <%= f.label :name_or_program_cont, "Search", class: "form-label" %>
+      <%= f.search_field :name_or_program_cont,
+      class: "form-control",
+      placeholder: "Student name or program..." %>
+    </div>
+
+    <div class="col-md-3">
+      <%= f.label :department_id_eq, "Department", class: "form-label" %>
+      <%= f.collection_select :department_id_eq, Department.order(:name), :id, :name,
+            { include_blank: "All departments" },
+            { class: "form-select" } %>
+    </div>
+
+    <div class="col-md-3">
+      <%= f.label :sections_name_eq, "Section", class: "form-label" %>
+      <%= f.collection_select :sections_name_eq, Section.order(:name).distinct, :name, :name,
+            { include_blank: "All sections" },
+            { class: "form-select" } %>
+    </div>
+
+    <div class="col-md-2 d-flex gap-2">
+      <%= f.submit "Search", class: "btn btn-primary" %>
+      <%= link_to "Reset", students_path, class: "btn btn-outline-secondary" %>
+    </div>
+  </div>
+<% end %>
+
 <div id="students" class="table-responsive">
   <table class="table table-striped table-hover table-bordered align-middle">
 
