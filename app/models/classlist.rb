@@ -1,6 +1,7 @@
 class Classlist < ApplicationRecord
   belongs_to :student
   belongs_to :section, counter_cache: :student_count
+  validates :student_id, uniqueness: { scope: :section_id, message: "is already enrolled in this section" }
 
   after_create :student_enrolled
   after_destroy :student_dropped
