@@ -9,6 +9,11 @@ Rails.application.routes.draw do
   resources :teachers do
     delete :remove_subject, on: :member
   end
-  resources :students
+  resources :students do
+    collection do
+      get  :import, action: :new_import
+      post :import, action: :create_import
+    end
+  end
   resources :departments
 end

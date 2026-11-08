@@ -1,0 +1,39 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+    <li class="breadcrumb-item"><%= link_to "Students", students_path %></li>
+    <li class="breadcrumb-item active">Import</li>
+  </ol>
+</nav>
+
+<h1>Import students</h1>
+<p class="text-muted">
+  Upload a .csv or .xlsx file with the columns
+  <code>name</code>, <code>year_level</code>, <code>program</code>, <code>department</code>
+  (department must match an existing department name).
+</p>
+
+<% if flash[:alert] %>
+  <div class="alert alert-danger"><%= flash[:alert] %></div>
+<% end %>
+
+<% if @result %>
+  <div class="alert alert-success"><%= @result.imported %> student(s) imported.</div>
+
+  <% if @result.skipped.any? %>
+    <div class="alert alert-warning">
+      <strong><%= @result.skipped.size %> row(s) skipped:</strong>
+      <ul class="mb-0">
+        <% @result.skipped.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% end %>
+
+<%= form_with url: import_students_path, method: :post, multipart: true,
+      class: "d-flex gap-2 align-items-center" do |f| %>
+  <%= f.file_field :file, accept: ".csv,.xlsx", class: "form-control w-auto" %>
+  <%= f.submit "Import", class: "btn btn-primary" %>
+<% end %>
