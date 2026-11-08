@@ -72,6 +72,24 @@ class StudentsController < ApplicationController
     end
   end
 
+  def new_import
+  end
+
+  def create_import
+    file = params[:file]
+
+    if file.blank? || !%w[.csv .xlsx].include?(File.extname(file.original_filename).downcase)
+      flash.now[:alert] = "Please choose a .csv or .xlsx file."
+      return render :new_import, status: :unprocessable_entity
+    end
+
+    @result = StudentImporter.new(file).call
+    render :new_import
+  rescue StandardError => e
+    flash.now[:alert] = "Could not read the file: #{e.message}"
+    render :new_import, status: :unprocessable_entity
+  end
+
   private
 
   def set_student
