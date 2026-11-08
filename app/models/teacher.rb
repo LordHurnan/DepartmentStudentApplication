@@ -15,6 +15,14 @@ class Teacher < ApplicationRecord
   after_update :department_was_changed
   after_update :update_salary_if_rate_changed
 
+  def self.ransackable_attributes(auth_object = nil)
+    %w[name department_id]
+  end
+  
+  def self.ransackable_associations(auth_object = nil)
+    %w[department subjects]
+  end
+
   def display_name
     [department&.name, name].compact_blank.join(" - ")
   end

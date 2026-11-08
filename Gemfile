@@ -46,6 +46,7 @@ gem "chartkick"
 gem "paper_trail"
 gem "rqrcode"
 gem "friendly_id"
+gem "ransack"
 
 
 group :development, :test do

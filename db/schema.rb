@@ -104,7 +104,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_07_093404) do
   add_foreign_key "classlists", "sections"
   add_foreign_key "classlists", "students"
   add_foreign_key "laboratories", "departments"
-  add_foreign_key "sections", "subjects"
   add_foreign_key "students", "departments"
   add_foreign_key "subjects", "teachers"
   add_foreign_key "teachers", "departments"

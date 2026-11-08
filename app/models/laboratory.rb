@@ -5,8 +5,12 @@ class Laboratory < ApplicationRecord
   after_destroy :decrement_department_count
   after_update :department_was_changed
 
-  def display_name
-    [ department&.name, name ].compact_blank.join(" - ")
+  def self.ransackable_attributes(auth_object = nil)
+    %w[id name]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[department]
   end
 
   private

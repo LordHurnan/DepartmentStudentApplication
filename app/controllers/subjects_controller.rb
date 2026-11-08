@@ -1,9 +1,17 @@
 class SubjectsController < ApplicationController
+  include Pagy::Method
+
   before_action :set_subject, only: %i[ show edit update destroy ]
+
 
   # GET /subjects or /subjects.json
   def index
-    @subjects = Subject.all
+    @q = Subject.ransack(params[:q])
+    @pagy, @subjects = pagy(
+      :offset,
+      @q.result(distinct: true).includes(:teacher).order(:id),
+      limit: 10
+    )
   end
 
   # GET /subjects/1 or /subjects/1.json

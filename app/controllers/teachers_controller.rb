@@ -1,8 +1,15 @@
 class TeachersController < ApplicationController
+  include Pagy::Method
+  
   before_action :set_teacher, only: %i[ show edit update destroy remove_subject ]
 
   def index
-    @teachers = Teacher.all
+    @q = Teacher.ransack(params[:q])
+    @pagy, @teachers = pagy(
+      :offset,
+      @q.result(distinct: true).includes(:department).order(:id),
+      limit: 10
+    )
   end
 
   def show

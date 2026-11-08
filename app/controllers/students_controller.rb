@@ -6,7 +6,12 @@ class StudentsController < ApplicationController
   before_action :set_student, only: %i[ show edit update destroy ]
 
   def index
-    @pagy, @students = pagy(:offset, Student.order(:id), limit: 10)
+    @q = Student.ransack(params[:q])
+    @pagy, @students = pagy(
+      :offset,
+      @q.result(distinct: true).includes(:department).order(:id),
+      limit: 10
+    )
   end
 
   def show

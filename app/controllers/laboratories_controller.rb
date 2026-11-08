@@ -1,9 +1,16 @@
 class LaboratoriesController < ApplicationController
+  include Pagy::Method
+
   before_action :set_laboratory, only: %i[ show edit update destroy ]
 
   # GET /laboratories or /laboratories.json
   def index
-    @laboratories = Laboratory.all
+  @q = Laboratory.ransack(params[:q])
+  @pagy, @laboratories = pagy(
+    :offset,
+    @q.result(distinct: true).order(:id),
+    limit: 10
+  )
   end
 
   # GET /laboratories/1 or /laboratories/1.json
