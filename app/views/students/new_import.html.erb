@@ -33,6 +33,7 @@
 <% end %>
 
 <%= form_with url: import_students_path, method: :post, multipart: true,
+      data: { turbo: false },
       class: "d-flex gap-2 align-items-center" do |f| %>
   <%= f.file_field :file, accept: ".csv,.xlsx", class: "form-control w-auto" %>
   <%= f.submit "Import", class: "btn btn-primary" %>

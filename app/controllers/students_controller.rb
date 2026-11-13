@@ -83,8 +83,11 @@ class StudentsController < ApplicationController
       return render :new_import, status: :unprocessable_entity
     end
 
-    @result = StudentImporter.new(file).call
-    render :new_import
+    result = StudentImporter.new(file).call
+    notice = "#{result.imported} student(s) imported."
+    notice += " #{result.skipped.size} row(s) skipped: #{result.skipped.first(5).join('; ')}" if result.skipped.any?
+
+    redirect_to students_path, notice: notice, status: :see_other
   rescue StandardError => e
     flash.now[:alert] = "Could not read the file: #{e.message}"
     render :new_import, status: :unprocessable_entity
