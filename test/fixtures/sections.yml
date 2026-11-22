@@ -4,8 +4,10 @@ one:
   name: MyString
   room: MyString
   timeslot: MyString
+  subject: one
 
 two:
   name: MyString
   room: MyString
   timeslot: MyString
+  subject: two

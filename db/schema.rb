@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_07_093404) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_22_131137) do
   create_table "classlists", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "section_id", null: false
@@ -48,6 +48,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_07_093404) do
     t.string "timeslot"
     t.datetime "updated_at", null: false
     t.index ["subject_id"], name: "index_sections_on_subject_id"
+  end
+
+  create_table "sessions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "ip_address"
+    t.datetime "updated_at", null: false
+    t.string "user_agent"
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
   create_table "students", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -91,6 +100,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_07_093404) do
     t.index ["slug"], name: "index_teachers_on_slug", unique: true
   end
 
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email_address", null: false
+    t.string "password_digest", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email_address"], name: "index_users_on_email_address", unique: true
+  end
+
   create_table "versions", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.datetime "created_at"
     t.string "event", null: false
@@ -105,6 +122,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_07_093404) do
   add_foreign_key "classlists", "students"
   add_foreign_key "laboratories", "departments"
   add_foreign_key "sections", "subjects"
+  add_foreign_key "sessions", "users"
   add_foreign_key "students", "departments"
   add_foreign_key "subjects", "teachers"
   add_foreign_key "teachers", "departments"

@@ -1,6 +1,7 @@
 require "test_helper"
 
 class SectionsControllerTest < ActionDispatch::IntegrationTest
+  setup { sign_in_as users(:one) }
   setup do
     @section = sections(:one)
   end

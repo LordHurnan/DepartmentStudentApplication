@@ -118,3 +118,10 @@ end
 puts "Seed complete!"
 puts "Departments: #{Department.count}, Teachers: #{Teacher.count}, Subjects: #{Subject.count}"
 puts "Sections: #{Section.count}, Students: #{Student.count}, Enrollments: #{Classlist.count}"
+
+# --- Authentication: sample login account ---
+User.find_or_create_by!(email_address: "user@example.com") do |user|
+  user.password = "password123"
+  user.password_confirmation = "password123"
+end
+puts "Sample login: user@example.com / password123"

@@ -1,6 +1,7 @@
 require "test_helper"
 
 class DepartmentsControllerTest < ActionDispatch::IntegrationTest
+  setup { sign_in_as users(:one) }
   setup do
     @department = departments(:one)
   end

@@ -1,6 +1,7 @@
 require "test_helper"
 
 class ClasslistsControllerTest < ActionDispatch::IntegrationTest
+  setup { sign_in_as users(:one) }
   setup do
     @classlist = classlists(:one)
   end

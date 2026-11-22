@@ -1,6 +1,7 @@
 require "test_helper"
 
 class StudentsControllerTest < ActionDispatch::IntegrationTest
+  setup { sign_in_as users(:one) }
   setup do
     @student = students(:one)
   end

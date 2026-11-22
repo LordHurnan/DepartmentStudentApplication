@@ -51,27 +51,46 @@
 
     <!-- Top Controls -->
     <div class="d-flex justify-content-between align-items-center px-3 pt-3">
-      <!-- Menu Button -->
-      <button
-        class="btn btn-dark"
-        type="button"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#sidebar"
-        aria-controls="sidebar">
-        <i class="bi bi-list"></i> Menu
-      </button>
+      <% if authenticated? %>
+        <!-- Menu Button -->
+        <button
+          class="btn btn-dark"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#sidebar"
+          aria-controls="sidebar">
+          <i class="bi bi-list"></i> Menu
+        </button>
+      <% else %>
+        <span></span>
+      <% end %>
 
-      <!-- Night Mode Toggle -->
-      <button
-        id="theme-toggle"
-        class="btn btn-outline-secondary"
-        type="button"
-        aria-label="Switch to night mode">
-        <i class="bi bi-moon-stars-fill"></i>
-        <span>Night Mode</span>
-      </button>
+      <div class="d-flex align-items-center gap-2">
+        <% if authenticated? %>
+          <span class="text-muted small d-none d-sm-inline">
+            <%= Current.user.email_address %>
+          </span>
+
+          <%= button_to "Log out",
+              session_path,
+              method: :delete,
+              class: "btn btn-outline-danger",
+              form_class: "d-inline-block" %>
+        <% end %>
+
+        <!-- Night Mode Toggle -->
+        <button
+          id="theme-toggle"
+          class="btn btn-outline-secondary"
+          type="button"
+          aria-label="Switch to night mode">
+          <i class="bi bi-moon-stars-fill"></i>
+          <span>Night Mode</span>
+        </button>
+      </div>
     </div>
 
+    <% if authenticated? %>
     <!-- Sidebar -->
     <div
       class="offcanvas offcanvas-start bg-dark text-white"
@@ -131,6 +150,7 @@
         </ul>
       </div>
     </div>
+    <% end %>
 
     <!-- Main Content -->
     <main class="p-4">

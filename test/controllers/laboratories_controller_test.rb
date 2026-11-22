@@ -1,6 +1,7 @@
 require "test_helper"
 
 class LaboratoriesControllerTest < ActionDispatch::IntegrationTest
+  setup { sign_in_as users(:one) }
   setup do
     @laboratory = laboratories(:one)
   end

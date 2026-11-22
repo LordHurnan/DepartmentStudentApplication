@@ -1,6 +1,7 @@
 require "test_helper"
 
 class SubjectsControllerTest < ActionDispatch::IntegrationTest
+  setup { sign_in_as users(:one) }
   setup do
     @subject = subjects(:one)
   end
