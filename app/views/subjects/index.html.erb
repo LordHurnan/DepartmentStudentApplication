@@ -10,11 +10,13 @@
       <%= f.label :name_cont, "Search", class: "form-label" %>
       <%= f.search_field :name_cont, class: "form-control", placeholder: "Subject name..." %>
     </div>
+
     <div class="col-md-4">
       <%= f.label :teacher_id_eq, "Teacher", class: "form-label" %>
       <%= f.collection_select :teacher_id_eq, Teacher.order(:name), :id, :name,
             { include_blank: "All teachers" }, { class: "form-select" } %>
     </div>
+
     <div class="col-md-3 d-flex gap-2">
       <%= f.submit "Search", class: "btn btn-primary" %>
       <%= link_to "Reset", subjects_path, class: "btn btn-outline-secondary" %>
@@ -30,7 +32,11 @@
         <th>Name</th>
         <th>Teacher</th>
         <th>Number of Units</th>
-        <th>Per Unit Rate</th>
+
+        <% if admin? %>
+          <th>Per Unit Rate</th>
+        <% end %>
+
         <th>Sections</th>
         <th>Actions</th>
       </tr>
@@ -50,9 +56,11 @@
             <%= subject.number_of_units %>
           </td>
 
-          <td>
-            <%= number_to_currency subject.per_unit_rate, unit: "₱" %>
-          </td>
+          <% if admin? %>
+            <td>
+              <%= number_to_currency subject.per_unit_rate, unit: "₱" %>
+            </td>
+          <% end %>
 
           <td>
             <%= subject.sections.count %>
@@ -66,17 +74,19 @@
                 class: "btn btn-sm btn-primary",
                 form_class: "d-inline-block" %>
 
-            <%= button_to "Edit",
-                edit_subject_path(subject),
-                method: :get,
-                class: "btn btn-sm btn-secondary",
-                form_class: "d-inline-block" %>
+            <% if admin? %>
+              <%= button_to "Edit",
+                  edit_subject_path(subject),
+                  method: :get,
+                  class: "btn btn-sm btn-secondary",
+                  form_class: "d-inline-block" %>
 
-            <%= button_to "Delete",
-                subject,
-                method: :delete,
-                class: "btn btn-sm btn-danger",
-                form_class: "d-inline-block" %>
+              <%= button_to "Delete",
+                  subject,
+                  method: :delete,
+                  class: "btn btn-sm btn-danger",
+                  form_class: "d-inline-block" %>
+            <% end %>
 
           </td>
 
@@ -91,6 +101,8 @@
   <%== @pagy.series_nav(:bootstrap) %>
 </div>
 
-<%= link_to "New subject",
-    new_subject_path,
-    class: "btn btn-success" %>
+<% if admin? %>
+  <%= link_to "New subject",
+      new_subject_path,
+      class: "btn btn-success" %>
+<% end %>

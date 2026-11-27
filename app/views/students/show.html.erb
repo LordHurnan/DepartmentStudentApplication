@@ -129,32 +129,34 @@
   </div>
 </div>
 
-<!-- Enroll in a Section -->
-<div class="card shadow-sm mb-4">
-  <div class="card-header">
-    <h3 class="mb-0">Enroll in a Section</h3>
+<!-- Enroll in a Section: Admin Only -->
+<% if admin? %>
+  <div class="card shadow-sm mb-4">
+    <div class="card-header">
+      <h3 class="mb-0">Enroll in a Section</h3>
+    </div>
+
+    <div class="card-body">
+      <%= form_with model: @classlist, local: true do |form| %>
+        <%= form.hidden_field :student_id, value: @student.id %>
+
+        <div class="mb-3">
+          <%= form.label :section_id, "Section", class: "form-label" %>
+
+          <%= form.collection_select :section_id,
+              @available_sections,
+              :id,
+              :name,
+              { prompt: "Select a section" },
+              { class: "form-select" } %>
+        </div>
+
+        <%= hidden_field_tag :from_student, @student.id %>
+        <%= form.submit "Enroll", class: "btn btn-success" %>
+      <% end %>
+    </div>
   </div>
-
-  <div class="card-body">
-    <%= form_with model: @classlist, local: true do |form| %>
-      <%= form.hidden_field :student_id, value: @student.id %>
-
-      <div class="mb-3">
-        <%= form.label :section_id, "Section", class: "form-label" %>
-
-        <%= form.collection_select :section_id,
-            @available_sections,
-            :id,
-            :name,
-            { prompt: "Select a section" },
-            { class: "form-select" } %>
-      </div>
-
-      <%= hidden_field_tag :from_student, @student.id %>
-      <%= form.submit "Enroll", class: "btn btn-success" %>
-    <% end %>
-  </div>
-</div>
+<% end %>
 
 <!-- Change History - PaperTrail -->
 <div class="card shadow-sm mb-4">

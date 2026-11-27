@@ -1,102 +1,106 @@
 <% content_for :title, "New Teacher" %>
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-  <div>
-    <h1 class="mb-1">New Teacher</h1>
-    <p class="text-muted mb-0">
-      Add a new teacher
-    </p>
+<% if admin? %>
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h1 class="mb-1">New Teacher</h1>
+      <p class="text-muted mb-0">
+        Add a new teacher
+      </p>
+    </div>
+
+    <%= link_to "Back to Teachers",
+        teachers_path,
+        class: "btn btn-outline-secondary" %>
   </div>
 
-  <%= link_to "Back to Teachers",
-      teachers_path,
-      class: "btn btn-outline-secondary" %>
-</div>
+  <div class="card shadow-sm">
+    <div class="card-header">
+      <h3 class="mb-0">Teacher Information</h3>
+    </div>
 
-<div class="card shadow-sm">
-  <div class="card-header">
-    <h3 class="mb-0">Teacher Information</h3>
-  </div>
+    <div class="card-body">
 
-  <div class="card-body">
+      <%= form_with model: @teacher do |form| %>
 
-    <%= form_with model: @teacher do |form| %>
+        <% if @teacher.errors.any? %>
+          <div class="alert alert-danger">
+            <h5>
+              <%= pluralize(@teacher.errors.count, "error") %>
+              prohibited this teacher from being saved:
+            </h5>
 
-      <% if @teacher.errors.any? %>
-        <div class="alert alert-danger">
-          <h5>
-            <%= pluralize(@teacher.errors.count, "error") %>
-            prohibited this teacher from being saved:
-          </h5>
+            <ul class="mb-0">
+              <% @teacher.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
 
-          <ul class="mb-0">
-            <% @teacher.errors.each do |error| %>
-              <li><%= error.full_message %></li>
-            <% end %>
-          </ul>
+        <!-- Name -->
+        <div class="mb-3">
+          <%= form.label :name, "Name", class: "form-label" %>
+          <%= form.text_field :name,
+              class: "form-control",
+              placeholder: "Enter teacher's name" %>
         </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <%= form.label :email, "Email", class: "form-label" %>
+          <%= form.text_field :email,
+              class: "form-control",
+              placeholder: "Enter email" %>
+        </div>
+
+        <!-- Specialization -->
+        <div class="mb-3">
+          <%= form.label :specialization, "Specialization", class: "form-label" %>
+          <%= form.text_field :specialization,
+              class: "form-control",
+              placeholder: "Enter specialization" %>
+        </div>
+
+        <!-- Department -->
+        <div class="mb-3">
+          <%= form.label :department_id, "Department", class: "form-label" %>
+          <%= form.collection_select :department_id,
+              Department.order(:name),
+              :id,
+              :name,
+              { prompt: "Select Department" },
+              { class: "form-select" } %>
+        </div>
+
+        <!-- Per Unit Rate -->
+        <div class="mb-4">
+          <%= form.label :per_unit_rate, "Per Unit Rate", class: "form-label" %>
+          <%= form.number_field :per_unit_rate,
+              class: "form-control",
+              placeholder: "Enter per unit rate" %>
+        </div>
+
+        <!-- Buttons -->
+        <div class="d-flex gap-2">
+          <%= form.submit "Create Teacher",
+              class: "btn btn-primary" %>
+
+          <%= link_to "Cancel",
+              teachers_path,
+              class: "btn btn-outline-secondary" %>
+        </div>
+
       <% end %>
 
-      <!-- Name -->
-      <div class="mb-3">
-        <%= form.label :name, "Name", class: "form-label" %>
-
-        <%= form.text_field :name,
-            class: "form-control",
-            placeholder: "Enter teacher's name" %>
-      </div>
-
-      <!-- Email -->
-      <div class="mb-3">
-        <%= form.label :email, "Email", class: "form-label" %>
-
-        <%= form.text_field :email,
-            class: "form-control",
-            placeholder: "Enter email" %>
-      </div>
-
-      <!-- Specialization -->
-      <div class="mb-3">
-        <%= form.label :specialization, "Specialization", class: "form-label" %>
-
-        <%= form.text_field :specialization,
-            class: "form-control",
-            placeholder: "Enter specialization" %>
-      </div>
-
-      <!-- Department -->
-      <div class="mb-3">
-        <%= form.label :department_id, "Department", class: "form-label" %>
-
-        <%= form.collection_select :department_id,
-            Department.order(:name),
-            :id,
-            :name,
-            { prompt: "Select Department" },
-            { class: "form-select" } %>
-      </div>
-
-      <!-- Per Unit Rate -->
-      <div class="mb-4">
-        <%= form.label :per_unit_rate, "Per Unit Rate", class: "form-label" %>
-
-        <%= form.number_field :per_unit_rate,
-            class: "form-control",
-            placeholder: "Enter per unit rate" %>
-      </div>
-
-
-      <!-- Buttons -->
-      <div class="d-flex gap-2">
-        <%= form.submit "Create Teacher",
-            class: "btn btn-primary" %>
-
-        <%= link_to "Cancel",
-            teachers_path,
-            class: "btn btn-outline-secondary" %>
-      </div>
-
-    <% end %>
-
+    </div>
   </div>
-</div>
+
+<% else %>
+
+  <div class="alert alert-danger">
+    You are not authorized to access this page.
+  </div>
+
+<% end %>

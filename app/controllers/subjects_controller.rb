@@ -1,8 +1,8 @@
 class SubjectsController < ApplicationController
   include Pagy::Method
 
+  before_action :require_admin, only: %i[ new edit create update destroy ]
   before_action :set_subject, only: %i[ show edit update destroy ]
-
 
   # GET /subjects or /subjects.json
   def index

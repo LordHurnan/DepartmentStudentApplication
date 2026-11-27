@@ -1,16 +1,17 @@
 class LaboratoriesController < ApplicationController
   include Pagy::Method
 
+  before_action :require_admin, only: %i[ new edit create update destroy ]
   before_action :set_laboratory, only: %i[ show edit update destroy ]
 
   # GET /laboratories or /laboratories.json
   def index
-  @q = Laboratory.ransack(params[:q])
-  @pagy, @laboratories = pagy(
-    :offset,
-    @q.result(distinct: true).order(:id),
-    limit: 10
-  )
+    @q = Laboratory.ransack(params[:q])
+    @pagy, @laboratories = pagy(
+      :offset,
+      @q.result(distinct: true).order(:id),
+      limit: 10
+    )
   end
 
   # GET /laboratories/1 or /laboratories/1.json
@@ -71,13 +72,14 @@ class LaboratoriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_laboratory
-      @laboratory = Laboratory.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def laboratory_params
-      params.expect(laboratory: [ :name, :location, :department_id ])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_laboratory
+    @laboratory = Laboratory.find(params.expect(:id))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def laboratory_params
+    params.expect(laboratory: [ :name, :location, :department_id ])
+  end
 end

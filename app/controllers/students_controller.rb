@@ -3,6 +3,7 @@ require "rqrcode"
 class StudentsController < ApplicationController
   include Pagy::Method
 
+  before_action :require_admin, only: %i[ new edit create update destroy new_import create_import ]
   before_action :set_student, only: %i[ show edit update destroy ]
 
   def index

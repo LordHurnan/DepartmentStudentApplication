@@ -1,4 +1,5 @@
 class ClasslistsController < ApplicationController
+  before_action :require_admin, only: %i[ new edit create update destroy ]
   before_action :set_classlist, only: %i[ show edit update destroy ]
 
   # GET /classlists or /classlists.json

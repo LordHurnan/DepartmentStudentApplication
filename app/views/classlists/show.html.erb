@@ -107,14 +107,16 @@
 
     <div class="d-flex gap-2">
 
-      <%= link_to "Edit Class List",
-          edit_classlist_path(@classlist),
-          class: "btn btn-primary" %>
+      <% if admin? %>
+        <%= link_to "Edit Class List",
+            edit_classlist_path(@classlist),
+            class: "btn btn-primary" %>
 
-      <%= button_to "Delete Class List",
-          @classlist,
-          method: :delete,
-          class: "btn btn-danger" %>
+        <%= button_to "Delete Class List",
+            @classlist,
+            method: :delete,
+            class: "btn btn-danger" %>
+      <% end %>
 
       <%= link_to "Back to Class Lists",
           classlists_path,

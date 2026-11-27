@@ -1,6 +1,7 @@
 class TeachersController < ApplicationController
   include Pagy::Method
-  
+
+  before_action :require_admin, only: %i[ new edit create update destroy remove_subject ]
   before_action :set_teacher, only: %i[ show edit update destroy remove_subject ]
 
   def index

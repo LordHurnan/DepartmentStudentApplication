@@ -1,4 +1,5 @@
 class DepartmentsController < ApplicationController
+  before_action :require_admin, only: %i[ new edit create update destroy ]
   before_action :set_department, only: %i[ show edit update destroy ]
 
   # GET /departments or /departments.json
@@ -61,13 +62,14 @@ class DepartmentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_department
-      @department = Department.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def department_params
-      params.expect(department: [ :name, :location ])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_department
+    @department = Department.find(params.expect(:id))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def department_params
+    params.expect(department: [ :name, :location ])
+  end
 end

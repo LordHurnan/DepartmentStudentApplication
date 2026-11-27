@@ -68,17 +68,19 @@
                 class: "btn btn-sm btn-primary",
                 form_class: "d-inline-block" %>
 
-            <%= button_to "Edit",
-                edit_student_path(student),
-                method: :get,
-                class: "btn btn-sm btn-secondary",
-                form_class: "d-inline-block" %>
+            <% if admin? %>
+              <%= button_to "Edit",
+                  edit_student_path(student),
+                  method: :get,
+                  class: "btn btn-sm btn-secondary",
+                  form_class: "d-inline-block" %>
 
-            <%= button_to "Delete",
-                student,
-                method: :delete,
-                class: "btn btn-sm btn-danger",
-                form_class: "d-inline-block" %>
+              <%= button_to "Delete",
+                  student,
+                  method: :delete,
+                  class: "btn btn-sm btn-danger",
+                  form_class: "d-inline-block" %>
+            <% end %>
           </td>
         </tr>
       <% end %>
@@ -91,10 +93,12 @@
   <%== @pagy.series_nav(:bootstrap) %>
 </div>
 
-<%= link_to "New student",
-    new_student_path,
-    class: "btn btn-success" %>
+<% if admin? %>
+  <%= link_to "New student",
+      new_student_path,
+      class: "btn btn-success" %>
 
-<%= link_to "Import", 
-    import_students_path, 
-    class: "btn btn-outline-primary" %>
+  <%= link_to "Import",
+      import_students_path,
+      class: "btn btn-outline-primary" %>
+<% end %>
