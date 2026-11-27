@@ -8,13 +8,18 @@
   <div class="row g-3 align-items-end">
     <div class="col-md-5">
       <%= f.label :name_cont, "Search", class: "form-label" %>
-      <%= f.search_field :name_cont, class: "form-control", placeholder: "Teacher name..." %>
+      <%= f.search_field :name_cont,
+          class: "form-control",
+          placeholder: "Teacher name..." %>
     </div>
+
     <div class="col-md-4">
       <%= f.label :department_id_eq, "Department", class: "form-label" %>
       <%= f.collection_select :department_id_eq, Department.order(:name), :id, :name,
-            { include_blank: "All departments" }, { class: "form-select" } %>
+            { include_blank: "All departments" },
+            { class: "form-select" } %>
     </div>
+
     <div class="col-md-3 d-flex gap-2">
       <%= f.submit "Search", class: "btn btn-primary" %>
       <%= link_to "Reset", teachers_path, class: "btn btn-outline-secondary" %>
@@ -33,7 +38,11 @@
         <th>Department</th>
         <th>Subjects</th>
         <th>Monthly Salary</th>
-        <th>Per Unit Rate</th>
+
+        <% if admin? %>
+          <th>Per Unit Rate</th>
+        <% end %>
+
         <th>Actions</th>
       </tr>
     </thead>
@@ -43,22 +52,20 @@
         <tr id="<%= dom_id teacher %>">
 
           <td><%= teacher.name %></td>
-
           <td><%= teacher.email %></td>
-
           <td><%= teacher.specialization %></td>
-
           <td><%= teacher.department.name %></td>
-
           <td><%= teacher.subjects.count %></td>
 
           <td>
             <%= number_to_currency teacher.monthly_salary, unit: "₱" %>
           </td>
 
-          <td>
-            <%= number_to_currency teacher.per_unit_rate, unit: "₱" %>
-          </td>
+          <% if admin? %>
+            <td>
+              <%= number_to_currency teacher.per_unit_rate, unit: "₱" %>
+            </td>
+          <% end %>
 
           <td class="text-nowrap">
 
@@ -68,17 +75,19 @@
                 class: "btn btn-sm btn-primary",
                 form_class: "d-inline-block" %>
 
-            <%= button_to "Edit",
-                edit_teacher_path(teacher),
-                method: :get,
-                class: "btn btn-sm btn-secondary",
-                form_class: "d-inline-block" %>
+            <% if admin? %>
+              <%= button_to "Edit",
+                  edit_teacher_path(teacher),
+                  method: :get,
+                  class: "btn btn-sm btn-secondary",
+                  form_class: "d-inline-block" %>
 
-            <%= button_to "Delete",
-                teacher,
-                method: :delete,
-                class: "btn btn-sm btn-danger",
-                form_class: "d-inline-block" %>
+              <%= button_to "Delete",
+                  teacher,
+                  method: :delete,
+                  class: "btn btn-sm btn-danger",
+                  form_class: "d-inline-block" %>
+            <% end %>
 
           </td>
 
@@ -93,6 +102,8 @@
   <%== @pagy.series_nav(:bootstrap) %>
 </div>
 
-<%= link_to "New teacher",
-    new_teacher_path,
-    class: "btn btn-success" %>
+<% if admin? %>
+  <%= link_to "New teacher",
+      new_teacher_path,
+      class: "btn btn-success" %>
+<% end %>

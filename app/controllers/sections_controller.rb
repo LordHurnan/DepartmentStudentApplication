@@ -1,6 +1,7 @@
 class SectionsController < ApplicationController
   include Pagy::Method
 
+  before_action :require_admin, only: %i[ new edit create update destroy ]
   before_action :set_section, only: %i[ show edit update destroy ]
 
   # GET /sections or /sections.json
@@ -65,13 +66,14 @@ class SectionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_section
-      @section = Section.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def section_params
-      params.expect(section: [ :name, :room, :timeslot, :subject_id ])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_section
+    @section = Section.find(params.expect(:id))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def section_params
+    params.expect(section: [ :name, :room, :timeslot, :subject_id ])
+  end
 end

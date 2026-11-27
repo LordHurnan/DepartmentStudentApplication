@@ -34,7 +34,10 @@
 
           <div class="d-flex gap-2 flex-wrap">
             <%= link_to "View All", departments_path, class: "btn btn-primary" %>
-            <%= link_to "Add New", new_department_path, class: "btn btn-outline-success" %>
+
+            <% if admin? %>
+              <%= link_to "Add New", new_department_path, class: "btn btn-outline-success" %>
+            <% end %>
           </div>
         </div>
       </div>
@@ -55,7 +58,10 @@
 
           <div class="d-flex gap-2 flex-wrap">
             <%= link_to "View All", students_path, class: "btn btn-primary" %>
-            <%= link_to "Add New", new_student_path, class: "btn btn-outline-success" %>
+
+            <% if admin? %>
+              <%= link_to "Add New", new_student_path, class: "btn btn-outline-success" %>
+            <% end %>
           </div>
         </div>
       </div>
@@ -76,7 +82,10 @@
 
           <div class="d-flex gap-2 flex-wrap">
             <%= link_to "View All", teachers_path, class: "btn btn-primary" %>
-            <%= link_to "Add New", new_teacher_path, class: "btn btn-outline-success" %>
+
+            <% if admin? %>
+              <%= link_to "Add New", new_teacher_path, class: "btn btn-outline-success" %>
+            <% end %>
           </div>
         </div>
       </div>
@@ -97,7 +106,10 @@
 
           <div class="d-flex gap-2 flex-wrap">
             <%= link_to "View All", subjects_path, class: "btn btn-primary" %>
-            <%= link_to "Add New", new_subject_path, class: "btn btn-outline-success" %>
+
+            <% if admin? %>
+              <%= link_to "Add New", new_subject_path, class: "btn btn-outline-success" %>
+            <% end %>
           </div>
         </div>
       </div>
@@ -118,7 +130,10 @@
 
           <div class="d-flex gap-2 flex-wrap">
             <%= link_to "View All", sections_path, class: "btn btn-primary" %>
-            <%= link_to "Add New", new_section_path, class: "btn btn-outline-success" %>
+
+            <% if admin? %>
+              <%= link_to "Add New", new_section_path, class: "btn btn-outline-success" %>
+            <% end %>
           </div>
         </div>
       </div>
@@ -139,7 +154,10 @@
 
           <div class="d-flex gap-2 flex-wrap">
             <%= link_to "View All", laboratories_path, class: "btn btn-primary" %>
-            <%= link_to "Add New", new_laboratory_path, class: "btn btn-outline-success" %>
+
+            <% if admin? %>
+              <%= link_to "Add New", new_laboratory_path, class: "btn btn-outline-success" %>
+            <% end %>
           </div>
         </div>
       </div>
@@ -160,7 +178,10 @@
 
           <div class="d-flex gap-2 flex-wrap">
             <%= link_to "View All", classlists_path, class: "btn btn-primary" %>
-            <%= link_to "Add New", new_classlist_path, class: "btn btn-outline-success" %>
+
+            <% if admin? %>
+              <%= link_to "Add New", new_classlist_path, class: "btn btn-outline-success" %>
+            <% end %>
           </div>
         </div>
       </div>

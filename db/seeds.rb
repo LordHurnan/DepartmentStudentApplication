@@ -119,9 +119,21 @@ puts "Seed complete!"
 puts "Departments: #{Department.count}, Teachers: #{Teacher.count}, Subjects: #{Subject.count}"
 puts "Sections: #{Section.count}, Students: #{Student.count}, Enrollments: #{Classlist.count}"
 
-# --- Authentication: sample login account ---
+# --- Authentication: sample login accounts ---
+
+# Regular User account
 User.find_or_create_by!(email_address: "user@example.com") do |user|
   user.password = "password123"
   user.password_confirmation = "password123"
+  user.role = :user
 end
-puts "Sample login: user@example.com / password123"
+
+# Administrator account
+User.find_or_create_by!(email_address: "admin@example.com") do |user|
+  user.password = "admin123"
+  user.password_confirmation = "admin123"
+  user.role = :admin
+end
+
+puts "Sample User: user@example.com / password123"
+puts "Sample Admin: admin@example.com / admin123"

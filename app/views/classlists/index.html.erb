@@ -33,26 +33,22 @@
           <!-- Sections -->
           <td>
             <% enrollments.each_with_index do |classlist, index| %>
-
               <% if index > 0 %>
                 <hr class="my-2">
               <% end %>
 
               <%= classlist.section.name %>
-
             <% end %>
           </td>
 
           <!-- Subjects -->
           <td>
             <% enrollments.each_with_index do |classlist, index| %>
-
               <% if index > 0 %>
                 <hr class="my-2">
               <% end %>
 
               <%= classlist.section.subject.name %>
-
             <% end %>
           </td>
 
@@ -70,17 +66,19 @@
                   class: "btn btn-sm btn-primary",
                   form_class: "d-inline-block" %>
 
-              <%= button_to "Edit",
-                  edit_classlist_path(classlist),
-                  method: :get,
-                  class: "btn btn-sm btn-secondary",
-                  form_class: "d-inline-block" %>
+              <% if admin? %>
+                <%= button_to "Edit",
+                    edit_classlist_path(classlist),
+                    method: :get,
+                    class: "btn btn-sm btn-secondary",
+                    form_class: "d-inline-block" %>
 
-              <%= button_to "Delete",
-                  classlist,
-                  method: :delete,
-                  class: "btn btn-sm btn-danger",
-                  form_class: "d-inline-block" %>
+                <%= button_to "Delete",
+                    classlist,
+                    method: :delete,
+                    class: "btn btn-sm btn-danger",
+                    form_class: "d-inline-block" %>
+              <% end %>
 
             <% end %>
           </td>
@@ -93,6 +91,8 @@
   </table>
 </div>
 
-<%= link_to "New class list",
-    new_classlist_path,
-    class: "btn btn-success" %>
+<% if admin? %>
+  <%= link_to "New class list",
+      new_classlist_path,
+      class: "btn btn-success" %>
+<% end %>

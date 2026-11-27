@@ -1,220 +1,187 @@
 <% content_for :title, "Edit Subject" %>
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<% if admin? %>
 
-  <div>
-    <h1 class="mb-1">Edit Subject</h1>
+  <div class="d-flex justify-content-between align-items-center mb-4">
 
-    <p class="text-muted mb-0">
-      Update subject information
-    </p>
+    <div>
+      <h1 class="mb-1">Edit Subject</h1>
+
+      <p class="text-muted mb-0">
+        Update subject information
+      </p>
+    </div>
+
+    <%= link_to "Back to Subjects",
+        subjects_path,
+        class: "btn btn-outline-secondary" %>
+
   </div>
 
-  <%= link_to "Back to Subjects",
-      subjects_path,
-      class: "btn btn-outline-secondary" %>
+  <!-- Subject Information -->
+  <div class="card shadow-sm mb-4">
 
-</div>
+    <div class="card-header">
+      <h3 class="mb-0">Subject Information</h3>
+    </div>
 
+    <div class="card-body">
 
-<!-- Subject Information -->
-<div class="card shadow-sm mb-4">
+      <%= form_with model: @subject do |form| %>
 
-  <div class="card-header">
-    <h3 class="mb-0">Subject Information</h3>
-  </div>
+        <% if @subject.errors.any? %>
 
-  <div class="card-body">
+          <div class="alert alert-danger">
 
-    <%= form_with model: @subject do |form| %>
+            <h5>
+              <%= pluralize(@subject.errors.count, "error") %>
+              prohibited this subject from being saved:
+            </h5>
 
-      <% if @subject.errors.any? %>
+            <ul class="mb-0">
+              <% @subject.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
 
-        <div class="alert alert-danger">
+          </div>
 
-          <h5>
-            <%= pluralize(@subject.errors.count, "error") %>
-            prohibited this subject from being saved:
-          </h5>
+        <% end %>
 
-          <ul class="mb-0">
+        <!-- Name -->
+        <div class="mb-3">
+          <%= form.label :name,
+              "Name",
+              class: "form-label" %>
 
-            <% @subject.errors.each do |error| %>
+          <%= form.text_field :name,
+              class: "form-control",
+              placeholder: "Enter subject name" %>
+        </div>
 
-              <li>
-                <%= error.full_message %>
-              </li>
+        <!-- Teacher -->
+        <div class="mb-3">
+          <%= form.label :teacher_id,
+              "Teacher",
+              class: "form-label" %>
 
-            <% end %>
+          <%= form.collection_select :teacher_id,
+              Teacher.order(:name),
+              :id,
+              :name,
+              { prompt: "Select Teacher" },
+              { class: "form-select" } %>
+        </div>
 
-          </ul>
+        <!-- Number of Units -->
+        <div class="mb-3">
+          <%= form.label :number_of_units,
+              "Number of Units",
+              class: "form-label" %>
 
+          <%= form.number_field :number_of_units,
+              class: "form-control",
+              min: 0,
+              placeholder: "Enter number of units" %>
+        </div>
+
+        <!-- Per Unit Rate -->
+        <div class="mb-4">
+          <%= form.label :per_unit_rate,
+              "Per Unit Rate",
+              class: "form-label" %>
+
+          <%= form.number_field :per_unit_rate,
+              class: "form-control",
+              step: 0.01,
+              min: 0,
+              placeholder: "Enter per unit rate" %>
+        </div>
+
+        <!-- Buttons -->
+        <div class="d-flex gap-2">
+          <%= form.submit "Update Subject",
+              class: "btn btn-primary" %>
+
+          <%= link_to "Cancel",
+              @subject,
+              class: "btn btn-outline-secondary" %>
         </div>
 
       <% end %>
 
-
-      <!-- Name -->
-      <div class="mb-3">
-
-        <%= form.label :name,
-            "Name",
-            class: "form-label" %>
-
-        <%= form.text_field :name,
-            class: "form-control",
-            placeholder: "Enter subject name" %>
-
-      </div>
-
-
-      <!-- Teacher -->
-      <div class="mb-3">
-
-        <%= form.label :teacher_id,
-            "Teacher",
-            class: "form-label" %>
-
-        <%= form.collection_select :teacher_id,
-            Teacher.order(:name),
-            :id,
-            :name,
-            { prompt: "Select Teacher" },
-            { class: "form-select" } %>
-
-      </div>
-
-
-      <!-- Number of Units -->
-      <div class="mb-3">
-
-        <%= form.label :number_of_units,
-            "Number of Units",
-            class: "form-label" %>
-
-        <%= form.number_field :number_of_units,
-            class: "form-control",
-            min: 0,
-            placeholder: "Enter number of units" %>
-
-      </div>
-
-
-      <!-- Per Unit Rate -->
-      <div class="mb-4">
-
-        <%= form.label :per_unit_rate,
-            "Per Unit Rate",
-            class: "form-label" %>
-
-        <%= form.number_field :per_unit_rate,
-            class: "form-control",
-            step: 0.01,
-            min: 0,
-            placeholder: "Enter per unit rate" %>
-
-      </div>
-
-
-      <!-- Buttons -->
-      <div class="d-flex gap-2">
-
-        <%= form.submit "Update Subject",
-            class: "btn btn-primary" %>
-
-        <%= link_to "Cancel",
-            @subject,
-            class: "btn btn-outline-secondary" %>
-
-      </div>
-
-    <% end %>
+    </div>
 
   </div>
 
-</div>
+  <!-- Sections -->
+  <div class="card shadow-sm mb-4">
 
+    <div class="card-header">
+      <h3 class="mb-0">Sections</h3>
+    </div>
 
-<!-- Sections -->
-<div class="card shadow-sm mb-4">
+    <div class="card-body">
 
-  <div class="card-header">
-    <h3 class="mb-0">Sections</h3>
-  </div>
+      <% if @subject.sections.any? %>
 
-  <div class="card-body">
+        <div class="table-responsive">
 
-    <% if @subject.sections.any? %>
+          <table class="table table-striped table-hover table-bordered align-middle">
 
-      <div class="table-responsive">
-
-        <table class="table table-striped table-hover table-bordered align-middle">
-
-          <thead class="table-dark">
-
-            <tr>
-              <th>Section</th>
-              <th>Room</th>
-              <th>Timeslot</th>
-              <th>Students</th>
-            </tr>
-
-          </thead>
-
-          <tbody>
-
-            <% @subject.sections.each do |section| %>
-
+            <thead class="table-dark">
               <tr>
-
-                <td>
-                  <%= section.name %>
-                </td>
-
-                <td>
-                  <%= section.room %>
-                </td>
-
-                <td>
-                  <%= section.timeslot %>
-                </td>
-
-                <td>
-                  <%= section.students.count %>
-                </td>
-
+                <th>Section</th>
+                <th>Room</th>
+                <th>Timeslot</th>
+                <th>Students</th>
               </tr>
+            </thead>
 
-            <% end %>
+            <tbody>
+              <% @subject.sections.each do |section| %>
+                <tr>
+                  <td><%= section.name %></td>
+                  <td><%= section.room %></td>
+                  <td><%= section.timeslot %></td>
+                  <td><%= section.students.count %></td>
+                </tr>
+              <% end %>
+            </tbody>
 
-          </tbody>
+          </table>
 
-        </table>
+        </div>
 
-      </div>
+      <% else %>
 
-    <% else %>
+        <p class="text-muted mb-0">
+          No sections assigned to this subject.
+        </p>
 
-      <p class="text-muted mb-0">
-        No sections assigned to this subject.
-      </p>
+      <% end %>
 
-    <% end %>
+    </div>
 
   </div>
 
-</div>
+  <!-- Navigation -->
+  <div class="d-flex gap-2">
 
+    <%= link_to "Show this subject",
+        @subject,
+        class: "btn btn-secondary" %>
 
-<!-- Navigation -->
-<div class="d-flex gap-2">
+    <%= link_to "Back to Subjects",
+        subjects_path,
+        class: "btn btn-outline-secondary" %>
 
-  <%= link_to "Show this subject",
-      @subject,
-      class: "btn btn-secondary" %>
+  </div>
 
-  <%= link_to "Back to Subjects",
-      subjects_path,
-      class: "btn btn-outline-secondary" %>
+<% else %>
 
-</div>
+  <div class="alert alert-danger">
+    You are not authorized to access this page.
+  </div>
+
+<% end %>

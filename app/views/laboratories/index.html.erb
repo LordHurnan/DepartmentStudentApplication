@@ -6,11 +6,16 @@
   <div class="row g-3 align-items-end">
     <div class="col-md-9">
       <%= f.label :name_cont, "Search", class: "form-label" %>
-      <%= f.search_field :name_cont, class: "form-control", placeholder: "Laboratory name..." %>
+      <%= f.search_field :name_cont,
+          class: "form-control",
+          placeholder: "Laboratory name..." %>
     </div>
+
     <div class="col-md-3 d-flex gap-2">
       <%= f.submit "Search", class: "btn btn-primary" %>
-      <%= link_to "Reset", laboratories_path, class: "btn btn-outline-secondary" %>
+      <%= link_to "Reset",
+          laboratories_path,
+          class: "btn btn-outline-secondary" %>
     </div>
   </div>
 <% end %>
@@ -37,13 +42,9 @@
       <% @laboratories.each do |laboratory| %>
         <tr id="<%= dom_id laboratory %>">
 
-          <td>
-            <%= laboratory.name %>
-          </td>
+          <td><%= laboratory.name %></td>
 
-          <td>
-            <%= laboratory.location %>
-          </td>
+          <td><%= laboratory.location %></td>
 
           <td>
             <%= laboratory.department&.name || "N/A" %>
@@ -57,17 +58,19 @@
                 class: "btn btn-sm btn-primary",
                 form_class: "d-inline-block" %>
 
-            <%= button_to "Edit",
-                edit_laboratory_path(laboratory),
-                method: :get,
-                class: "btn btn-sm btn-secondary",
-                form_class: "d-inline-block" %>
+            <% if admin? %>
+              <%= button_to "Edit",
+                  edit_laboratory_path(laboratory),
+                  method: :get,
+                  class: "btn btn-sm btn-secondary",
+                  form_class: "d-inline-block" %>
 
-            <%= button_to "Delete",
-                laboratory,
-                method: :delete,
-                class: "btn btn-sm btn-danger",
-                form_class: "d-inline-block" %>
+              <%= button_to "Delete",
+                  laboratory,
+                  method: :delete,
+                  class: "btn btn-sm btn-danger",
+                  form_class: "d-inline-block" %>
+            <% end %>
 
           </td>
 
@@ -82,6 +85,8 @@
   <%== @pagy.series_nav(:bootstrap) %>
 </div>
 
-<%= link_to "New laboratory",
-    new_laboratory_path,
-    class: "btn btn-success" %>
+<% if admin? %>
+  <%= link_to "New laboratory",
+      new_laboratory_path,
+      class: "btn btn-success" %>
+<% end %>
